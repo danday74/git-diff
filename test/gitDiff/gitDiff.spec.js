@@ -1,7 +1,7 @@
 'use strict'
 
 var imp = require('../_js/testImports')
-// var gitDiff = require('../../index')
+var gitDiff = require('../../index')
 
 describe('gitDiff', function() {
 
@@ -26,8 +26,8 @@ describe('gitDiff', function() {
   describe('gitDiff', function() {
 
     it('gitDiff', function() {
-
-      imp.expect(true).to.equal(true)
+      var actual = gitDiff('', '')
+      imp.expect(actual).to.equal('')
     })
   })
 })
