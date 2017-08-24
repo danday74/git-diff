@@ -27,7 +27,7 @@ describe('gitDiff', function() {
 
     it('gitDiff', function() {
       var actual = gitDiff('', '')
-      imp.expect(actual).to.equal('')
+      imp.expect(actual).to.equal('false')
     })
   })
 })
