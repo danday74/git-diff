@@ -1,8 +1,7 @@
 'use strict'
 
-var config = require('./config')
 var jsDiff = require('diff')
-var chalk = require('chalk')
+var color = require('./color')
 var pkg = require('./package.json')
 
 function toBoolean(bool) {
@@ -16,12 +15,12 @@ function replaceAllButLast(str, pOld, pNew) {
   return str
 }
 
-var gitDiff = function(str1, str2, color) {
+var gitDiff = function(str1, str2, pColor) {
 
   if (typeof str1 !== 'string' || typeof str2 !== 'string') {
     throw TypeError('Both inputs to ' + pkg.name + ' must be strings')
   }
-  color = toBoolean(color)
+  pColor = toBoolean(pColor)
 
   var diff = jsDiff.diffLines(str1, str2)
 
@@ -33,30 +32,28 @@ var gitDiff = function(str1, str2, color) {
 
   if (isDiff) {
     diff.forEach(function(part) {
-      var color, prefix
+      var culla, prefix
       if (part.added) {
-        color = 'green'
+        culla = 'green'
         prefix = '+'
         part.value = replaceAllButLast(part.value, '\n', '\n ')
       } else if (part.removed) {
-        color = 'red'
+        culla = 'red'
         prefix = '-'
         part.value = replaceAllButLast(part.value, '\n', '\n ')
       } else {
-        color = 'grey'
+        culla = 'grey'
         prefix = ''
       }
       part.diff = prefix + part.value
-      /* istanbul ignore next */
-      if (!config.testing && color) part.diff = chalk[color](part.diff)
+      if (pColor) part.diff = color.add(part.diff, culla)
       accumulatedDiff += part.diff
     })
     return (accumulatedDiff)
 
   } else {
     var noDiff = 'no difference'
-    /* istanbul ignore next */
-    if (!config.testing && color) noDiff = chalk.grey(noDiff)
+    if (pColor) noDiff = color.add(noDiff, 'grey')
     return (noDiff)
   }
 }

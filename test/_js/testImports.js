@@ -12,11 +12,13 @@ chai.use(sinonChai)
 var readfilego = require('readfilego')
 
 // custom
+var color = require('../../color')
 
 var testImports = {
   expect: expect,
   sinon: sinon,
-  readfilego: readfilego
+  readfilego: readfilego,
+  color: color
 }
 
 module.exports = testImports

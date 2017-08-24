@@ -1383,6 +1383,10 @@ readable-stream@^2.2.2:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+readfilego@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/readfilego/-/readfilego-1.0.3.tgz#7e64eae343c0611de92a3e65d039f5ce7681f9bf"
+
 repeat-string@^1.5.2:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
