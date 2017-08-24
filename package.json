@@ -1,0 +1,43 @@
+{
+  "name": "git-diff",
+  "version": "1.0.1",
+  "description": "Returns the git diff of two strings",
+  "author": "Daniel Lewis BSc (Hons)",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/istanbul cover -x \"**/*.spec.js\" ./node_modules/mocha/bin/_mocha",
+    "enforcer": "./node_modules/.bin/istanbul check-coverage --statement 100 --branch 100 --function 100 --line 100",
+    "build": "npm-run-all test enforcer",
+    "prepush": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danday74/git-diff.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danday74/git-diff/issues"
+  },
+  "homepage": "https://github.com/danday74/git-diff#readme",
+  "keywords": [
+    "diff",
+    "git diff",
+    "string diff"
+  ],
+  "dependencies": {
+    "diff": "^3.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "coveralls": "2.11.16",
+    "husky": "^0.14.3",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "npm-run-all": "^4.0.2",
+    "sinon": "^3.2.1",
+    "sinon-chai": "^2.13.0"
+  },
+  "engines": {
+    "node": ">= 4"
+  }
+}

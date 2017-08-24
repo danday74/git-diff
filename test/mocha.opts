@@ -1,0 +1,4 @@
+test
+--recursive
+--reporter spec
+--slow 200
