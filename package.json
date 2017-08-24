@@ -36,6 +36,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "npm-run-all": "^4.0.2",
+    "readfilego": "^1.0.3",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0"
   },

@@ -9,12 +9,14 @@ var expect = chai.expect
 chai.use(sinonChai)
 
 // others
+var readfilego = require('readfilego')
 
 // custom
 
 var testImports = {
   expect: expect,
-  sinon: sinon
+  sinon: sinon,
+  readfilego: readfilego
 }
 
 module.exports = testImports
