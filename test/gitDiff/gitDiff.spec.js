@@ -23,11 +23,13 @@ describe('gitDiff', function() {
   //   sandbox.restore()
   // })
 
-  describe('gitDiff', function() {
+  it('gitDiff', function() {
+    var actual = gitDiff('', '', 'false')
+    imp.expect(actual).to.equal('false')
+  })
 
-    it('gitDiff', function() {
-      var actual = gitDiff('', '', 'false')
-      imp.expect(actual).to.equal('false')
-    })
+  it('gitDiff', function() {
+    var actual = gitDiff('', '', true)
+    imp.expect(actual).to.equal('true')
   })
 })
