@@ -51,7 +51,7 @@ describe('gitDiff', function() {
     })
 
     it('no difference', function() {
-      var actual = gitDiff('', '')
+      var actual = gitDiff('', '', 'false')
       imp.expect(imp.color.add).to.have.not.been.called
       imp.expect(actual).to.equal('no difference')
     })
