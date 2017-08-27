@@ -1,7 +1,7 @@
 'use strict'
 
 var chalk = require('chalk')
-var config = require('./config')
+var config = require('../../config')
 
 function Color() {
 

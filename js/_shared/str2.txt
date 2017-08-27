@@ -1,0 +1,9 @@
+This is a test for my difference tool
+It is a small test
+
+No diff here
+
+But there might be here!
+But not here
+
+Or here

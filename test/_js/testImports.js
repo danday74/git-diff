@@ -12,7 +12,7 @@ chai.use(sinonChai)
 var readfilego = require('readfilego')
 
 // custom
-var color = require('../../color')
+var color = require('../../js/gitDiffFake/color')
 
 var testImports = {
   expect: expect,

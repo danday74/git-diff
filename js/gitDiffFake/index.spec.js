@@ -1,10 +1,13 @@
 // 'use strict'
 //
-// var imp = require('../_js/testImports')
-// var gitDiff = require('../../index')
-// var pkg = require('../../package.json')
+// var imp = require('../../test/_js/testImports')
+// var gitDiffFake = require('./index')
 //
-// describe('gitDiff', function() {
+// var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', {throw: true, save: true})
+// var str2 = imp.readfilego(__dirname + '/../_shared/str2.txt')
+// var expected = imp.readfilego(__dirname + '/../_shared/gitDiff.txt')
+//
+// describe('gitDiffFake', function() {
 //
 //   var sandbox
 //
@@ -20,10 +23,7 @@
 //   describe('color', function() {
 //
 //     it('difference', function() {
-//       var str1 = imp.readfilego(__dirname + '/str1.txt', {throw: true, save: true})
-//       var str2 = imp.readfilego(__dirname + '/str2.txt')
-//       var expected = imp.readfilego(__dirname + '/gitDiff.txt')
-//       var actual = gitDiff(str1, str2, true)
+//       var actual = gitDiffFake(str1, str2, {color: true})
 //       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
 //       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
 //       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'grey')
@@ -31,7 +31,7 @@
 //     })
 //
 //     it('no difference', function() {
-//       var actual = gitDiff('', '', true)
+//       var actual = gitDiffFake('', '', {color: true})
 //       imp.expect(imp.color.add).to.have.not.been.calledWith(imp.sinon.match.any, 'green')
 //       imp.expect(imp.color.add).to.have.not.been.calledWith(imp.sinon.match.any, 'red')
 //       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'grey')
@@ -42,28 +42,15 @@
 //   describe('no color', function() {
 //
 //     it('difference', function() {
-//       var str1 = imp.readfilego(__dirname + '/str1.txt', {throw: true, save: true})
-//       var str2 = imp.readfilego(__dirname + '/str2.txt')
-//       var expected = imp.readfilego(__dirname + '/gitDiff.txt')
-//       var actual = gitDiff(str1, str2)
+//       var actual = gitDiffFake(str1, str2, {color: false})
 //       imp.expect(imp.color.add).to.have.not.been.called
 //       imp.expect(actual).to.equal(expected)
 //     })
 //
 //     it('no difference', function() {
-//       var actual = gitDiff('', '', 'false')
+//       var actual = gitDiffFake('', '', {color: false})
 //       imp.expect(imp.color.add).to.have.not.been.called
 //       imp.expect(actual).to.equal('no difference')
 //     })
-//   })
-//
-//   it('type error', function() {
-//     imp.expect(function() {
-//       gitDiff(undefined, '')
-//     }).to.throw('Both inputs to ' + pkg.name + ' must be strings')
-//
-//     imp.expect(function() {
-//       gitDiff('', undefined)
-//     }).to.throw('Both inputs to ' + pkg.name + ' must be strings')
 //   })
 // })
