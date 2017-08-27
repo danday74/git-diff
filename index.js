@@ -3,6 +3,7 @@
 var jsDiff = require('diff')
 var color = require('./color')
 var pkg = require('./package.json')
+var realGitDiff = require('./js/realGitDiff')
 
 function toBoolean(bool) {
   if (bool === 'false') bool = false
@@ -21,6 +22,8 @@ var gitDiff = function(str1, str2, pColor) {
     throw TypeError('Both inputs to ' + pkg.name + ' must be strings')
   }
   pColor = toBoolean(pColor)
+
+  realGitDiff(str1, str2)
 
   var diff = jsDiff.diffLines(str1, str2)
 
