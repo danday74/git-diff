@@ -1,0 +1,10 @@
+@@ -1,9 +1,9 @@
+This is a test for my [-diff-]{+difference+} tool
+It is a [-big-]{+small+} test
+
+No diff here
+
+But there might be here{+!+}
+But not here
+
+Or here
