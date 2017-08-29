@@ -31,6 +31,10 @@ function normaliseOptions(options) {
       options.fake = toBoolean(options.fake)
     }
 
+    if (options.flags && typeof options.flags !== 'string') {
+      options.flags = DEFAULTS.flags
+    }
+
     if (options.save) {
       options.save = toBoolean(options.save)
     }
@@ -42,9 +46,14 @@ function normaliseOptions(options) {
 
   options = Object.assign({}, DEFAULTS, options)
 
+  if (options.flags != null) {
+    options.flags = options.flags.trim()
+  }
+
   if (options.save) {
     DEFAULTS.color = options.color
     DEFAULTS.fake = options.fake
+    DEFAULTS.flags = options.flags
     DEFAULTS.wordDiff = options.wordDiff
   }
 
