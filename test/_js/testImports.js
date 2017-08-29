@@ -13,16 +13,16 @@ var loglevel = require('loglevel')
 var readfilego = require('readfilego')
 
 // custom
-var cfg = require('../../config')
 var color = require('../../js/gitDiffFake/color')
+var keepIt = require('../../js/gitDiffReal/keepIt')
 
 var testImports = {
   expect: expect,
   sinon: sinon,
   loglevel: loglevel,
   readfilego: readfilego,
-  cfg: cfg,
-  color: color
+  color: color,
+  keepIt: keepIt
 }
 
 module.exports = testImports

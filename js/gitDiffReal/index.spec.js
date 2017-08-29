@@ -6,7 +6,7 @@ var gitDiffReal = require('./index')
 
 var GREEN = '\u001b[32m'
 var RED = '\u001b[31m'
-var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', {throw: true, save: true})
+var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', { throw: true, save: true })
 var str2 = imp.readfilego(__dirname + '/../_shared/str2.txt')
 
 describe('gitDiffReal', function() {
@@ -30,8 +30,8 @@ describe('gitDiffReal', function() {
   describe('line difference', function() {
 
     it('color', function() {
-      var actual = gitDiffReal(str1, str2, {color: true, wordDiff: false})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { color: true, wordDiff: false })
+      if (imp.keepIt.real()) {
         imp.expect(actual).to.include(RED)
         imp.expect(actual).to.include(GREEN)
       } else {
@@ -40,8 +40,8 @@ describe('gitDiffReal', function() {
     })
 
     it('no color', function() {
-      var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { color: false, wordDiff: false })
+      if (imp.keepIt.real()) {
         var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt')
         imp.expect(actual).to.not.include(RED)
         imp.expect(actual).to.not.include(GREEN)
@@ -55,8 +55,8 @@ describe('gitDiffReal', function() {
   describe('word difference', function() {
 
     it('color', function() {
-      var actual = gitDiffReal(str1, str2, {color: true, wordDiff: true})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { color: true, wordDiff: true })
+      if (imp.keepIt.real()) {
         imp.expect(actual).to.include(RED)
         imp.expect(actual).to.include(GREEN)
       } else {
@@ -65,8 +65,8 @@ describe('gitDiffReal', function() {
     })
 
     it('no color', function() {
-      var actual = gitDiffReal(str1, str2, {color: false, wordDiff: true})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { color: false, wordDiff: true })
+      if (imp.keepIt.real()) {
         var expected = imp.readfilego(__dirname + '/../_shared/wordDiffReal.txt')
         imp.expect(actual).to.not.include(RED)
         imp.expect(actual).to.not.include(GREEN)
@@ -80,8 +80,8 @@ describe('gitDiffReal', function() {
   describe('flags', function() {
 
     it('valid', function() {
-      var actual = gitDiffReal(str1, str2, {flags: '--shortstat'})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { flags: '--shortstat' })
+      if (imp.keepIt.real()) {
         imp.expect(imp.loglevel.warn).to.have.not.been.called
         imp.expect(imp.loglevel.info).to.have.not.been.called
         var expected = imp.readfilego(__dirname + '/../_shared/shortStatReal.txt')
@@ -92,8 +92,8 @@ describe('gitDiffReal', function() {
     })
 
     it('invalid', function() {
-      var actual = gitDiffReal(str1, str2, {flags: '--oops'})
-      if (imp.cfg.keepItReal) {
+      var actual = gitDiffReal(str1, str2, { flags: '--oops' })
+      if (imp.keepIt.real()) {
         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
         imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
         var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt')

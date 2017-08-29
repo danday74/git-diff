@@ -2,7 +2,7 @@
 
 var logger = require('loglevel')
 var shell = require('shelljs')
-var config = require('../../config')
+var keepIt = require('./keepIt')
 var DEFAULTS = require('../_shared/defaultOptions')
 var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
 
@@ -14,7 +14,7 @@ logger.setLevel('info')
 
 var gitDiffReal = function(str1, str2, options) {
 
-  if (config.keepItReal) {
+  if (keepIt.real()) {
 
     var stringify1 = JSON.stringify(str1).replace(/^"/, '').replace(/"$/, '')
     var stringify2 = JSON.stringify(str2).replace(/^"/, '').replace(/"$/, '')
@@ -23,8 +23,8 @@ var gitDiffReal = function(str1, str2, options) {
     var gitHashCmd1 = 'printf \'' + stringify1 + '\' | git hash-object -w --stdin'
     var gitHashCmd2 = 'printf \'' + stringify2 + '\' | git hash-object -w --stdin'
 
-    var gitHashObj1 = shell.exec(gitHashCmd1, {silent: true})
-    var gitHashObj2 = shell.exec(gitHashCmd2, {silent: true})
+    var gitHashObj1 = shell.exec(gitHashCmd1, { silent: true })
+    var gitHashObj2 = shell.exec(gitHashCmd2, { silent: true })
 
     if (!gitHashObj1.code && !gitHashObj2.code) {
 
@@ -56,7 +56,7 @@ var gitDiffReal = function(str1, str2, options) {
 
           var newCommand = 'git diff ' + sha1 + ' ' + sha2 + flags
 
-          trueDiffObj = shell.exec(newCommand, {silent: true})
+          trueDiffObj = shell.exec(newCommand, { silent: true })
 
           if (trueDiffObj.code === 129 && trueDiffObj.stderr.indexOf('usage') > -1) {
             logger.warn('Ignoring invalid git diff options: ' + options.flags)
