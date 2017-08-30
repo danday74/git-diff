@@ -6,106 +6,124 @@ var gitDiffReal = require('./index')
 
 var GREEN = '\u001b[32m'
 var RED = '\u001b[31m'
-var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', { throw: true, save: true })
+var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', {throw: true, save: true})
 var str2 = imp.readfilego(__dirname + '/../_shared/str2.txt')
 
 describe('gitDiffReal', function() {
 
   var sandbox
 
-  before(function() {
-    imp.loglevel.setLevel('silent')
-  })
+  describe('real is available', function() {
 
-  beforeEach(function() {
-    sandbox = imp.sinon.sandbox.create()
-    sandbox.spy(imp.loglevel, 'info')
-    sandbox.spy(imp.loglevel, 'warn')
-  })
-
-  afterEach(function() {
-    sandbox.restore()
-  })
-
-  describe('line difference', function() {
-
-    it('color', function() {
-      var actual = gitDiffReal(str1, str2, { color: true, wordDiff: false })
-      if (imp.keepIt.real()) {
-        imp.expect(actual).to.include(RED)
-        imp.expect(actual).to.include(GREEN)
-      } else {
-        imp.expect(actual).to.be.undefined
-      }
+    before(function() {
+      imp.loglevel.setLevel('silent')
     })
 
-    it('no color', function() {
-      var actual = gitDiffReal(str1, str2, { color: false, wordDiff: false })
-      if (imp.keepIt.real()) {
+    beforeEach(function() {
+      sandbox = imp.sinon.sandbox.create()
+      sandbox.spy(imp.loglevel, 'info')
+      sandbox.spy(imp.loglevel, 'warn')
+    })
+
+    afterEach(function() {
+      sandbox.restore()
+    })
+
+    describe('line difference', function() {
+
+      before(function() {
+        if (!imp.keepIt.real()) this.skip()
+      })
+
+      it('color', function() {
+        var actual = gitDiffReal(str1, str2, {color: true, wordDiff: false})
+        imp.expect(actual).to.include(RED)
+        imp.expect(actual).to.include(GREEN)
+      })
+
+      it('no color', function() {
         var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt')
+        var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
+        imp.expect(actual).to.equal(expected)
         imp.expect(actual).to.not.include(RED)
         imp.expect(actual).to.not.include(GREEN)
-        imp.expect(actual).to.equal(expected)
-      } else {
+      })
+
+      it('no difference', function() {
+        var actual = gitDiffReal('', '', {wordDiff: false})
         imp.expect(actual).to.be.undefined
-      }
+      })
     })
-  })
 
-  describe('word difference', function() {
+    describe('word difference', function() {
 
-    it('color', function() {
-      var actual = gitDiffReal(str1, str2, { color: true, wordDiff: true })
-      if (imp.keepIt.real()) {
+      before(function() {
+        if (!imp.keepIt.real()) this.skip()
+      })
+
+      it('color', function() {
+        var actual = gitDiffReal(str1, str2, {color: true, wordDiff: true})
         imp.expect(actual).to.include(RED)
         imp.expect(actual).to.include(GREEN)
-      } else {
-        imp.expect(actual).to.be.undefined
-      }
-    })
+      })
 
-    it('no color', function() {
-      var actual = gitDiffReal(str1, str2, { color: false, wordDiff: true })
-      if (imp.keepIt.real()) {
+      it('no color', function() {
         var expected = imp.readfilego(__dirname + '/../_shared/wordDiffReal.txt')
+        var actual = gitDiffReal(str1, str2, {color: false, wordDiff: true})
+        imp.expect(actual).to.equal(expected)
         imp.expect(actual).to.not.include(RED)
         imp.expect(actual).to.not.include(GREEN)
-        imp.expect(actual).to.equal(expected)
-      } else {
+      })
+
+      it('no difference', function() {
+        var actual = gitDiffReal('', '', {wordDiff: true})
         imp.expect(actual).to.be.undefined
-      }
+      })
     })
-  })
 
-  describe('flags', function() {
+    describe('flags', function() {
 
-    it('valid', function() {
-      var actual = gitDiffReal(str1, str2, { flags: '--shortstat' })
-      if (imp.keepIt.real()) {
+      before(function() {
+        if (!imp.keepIt.real()) this.skip()
+      })
+
+      it('valid', function() {
+        var expected = imp.readfilego(__dirname + '/../_shared/shortStatReal.txt')
+        var actual = gitDiffReal(str1, str2, {flags: '--shortstat'})
+        imp.expect(actual).to.equal(expected)
         imp.expect(imp.loglevel.warn).to.have.not.been.called
         imp.expect(imp.loglevel.info).to.have.not.been.called
-        var expected = imp.readfilego(__dirname + '/../_shared/shortStatReal.txt')
-        imp.expect(actual).to.equal(expected)
-      } else {
-        imp.expect(actual).to.be.undefined
-      }
-    })
+      })
 
-    it('invalid', function() {
-      var actual = gitDiffReal(str1, str2, { flags: '--oops' })
-      if (imp.keepIt.real()) {
-        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+      it('invalid', function() {
+        var actual = gitDiffReal(str1, str2, {flags: '--oops'})
         var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt')
         imp.expect(actual).to.equal(expected)
-      } else {
-        imp.expect(actual).to.be.undefined
-      }
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+      })
     })
   })
 
-  it('no difference', function() {
-    var actual = gitDiffReal('', '', {})
-    imp.expect(actual).to.be.undefined
+  describe('real is unavailable', function() {
+
+    beforeEach(function() {
+      sandbox = imp.sinon.sandbox.create()
+      sandbox.stub(imp.keepIt, 'real').returns(false)
+    })
+
+    afterEach(function() {
+      sandbox.restore()
+    })
+
+    it('line difference', function() {
+      var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
+      imp.expect(actual).to.be.undefined
+    })
+
+    it('word difference', function() {
+      var actual = gitDiffReal(str1, str2, {color: false, wordDiff: true})
+      imp.expect(actual).to.be.undefined
+    })
   })
 })
