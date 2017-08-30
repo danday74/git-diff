@@ -69,7 +69,7 @@ describe('gitDiffFake', function() {
 
     it('one liner', function() {
       var actual = gitDiffFake('my first string', 'my second string', {wordDiff: true})
-      imp.expect(actual).to.equal('my [-first-]{+second+} string')
+      imp.expect(actual).to.equal('my [-first-]{+second+} string\n')
     })
 
     it('no difference', function() {

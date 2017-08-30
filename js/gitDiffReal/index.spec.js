@@ -49,6 +49,11 @@ describe('gitDiffReal', function() {
         imp.expect(actual).to.not.include(GREEN)
       })
 
+      it('one liner', function() {
+        var actual = gitDiffReal('my first string', 'my second string', {wordDiff: false})
+        imp.expect(actual).to.equal('@@ -1 +1 @@\n-my first string\n\\ No newline at end of file\n+my second string\n\\ No newline at end of file\n')
+      })
+
       it('no difference', function() {
         var actual = gitDiffReal('', '', {wordDiff: false})
         imp.expect(actual).to.be.undefined
@@ -73,6 +78,11 @@ describe('gitDiffReal', function() {
         imp.expect(actual).to.equal(expected)
         imp.expect(actual).to.not.include(RED)
         imp.expect(actual).to.not.include(GREEN)
+      })
+
+      it('one liner', function() {
+        var actual = gitDiffReal('my first string', 'my second string', {wordDiff: true})
+        imp.expect(actual).to.equal('@@ -1 +1 @@\nmy [-first-]{+second+} string\n')
       })
 
       it('no difference', function() {
@@ -101,6 +111,28 @@ describe('gitDiffReal', function() {
         imp.expect(actual).to.equal(expected)
         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
         imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+      })
+
+      it('invalid with valid default', function() {
+        DEFAULTS.flags = '--shortstat'
+        var actual = gitDiffReal(str1, str2, {flags: '--oops'})
+        var expected = imp.readfilego(__dirname + '/../_shared/shortStatReal.txt')
+        imp.expect(actual).to.equal(expected)
+        imp.expect(DEFAULTS.flags).to.equal('--shortstat')
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('Using default git diff options: --shortstat')
+      })
+
+      it('invalid with invalid default', function() {
+        DEFAULTS.flags = '--oops'
+        var actual = gitDiffReal(str1, str2, {flags: '--oops'})
+        var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt')
+        imp.expect(actual).to.equal(expected)
+        imp.expect(DEFAULTS.flags).to.equal(null)
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+        imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
       })
     })
   })

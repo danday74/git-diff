@@ -7,6 +7,11 @@ function wordDiffFake(str1, str2, options) {
 
   var diff, isDiff, accumulatedDiff = ''
 
+  if (!str1.endsWith('\n') || !str2.endsWith('\n')) {
+    str1 += '\n'
+    str2 += '\n'
+  }
+
   diff = jsDiff.diffWordsWithSpace(str1, str2)
 
   isDiff = diff.some(function(item) {

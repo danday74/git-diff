@@ -26,6 +26,7 @@ var gitDiffReal = function(str1, str2, options) {
     var gitHashObj1 = shell.exec(gitHashCmd1, {silent: true})
     var gitHashObj2 = shell.exec(gitHashCmd2, {silent: true})
 
+    /* istanbul ignore else */
     if (!gitHashObj1.code && !gitHashObj2.code) {
 
       var sha1 = gitHashObj1.stdout.replace('\n', '')
@@ -34,6 +35,7 @@ var gitDiffReal = function(str1, str2, options) {
       var sha1Test = SHA_REGEX.test(sha1)
       var sha2Test = SHA_REGEX.test(sha2)
 
+      /* istanbul ignore else */
       if (sha1Test && sha2Test) {
 
         var trueDiffObj, repeat
@@ -74,6 +76,7 @@ var gitDiffReal = function(str1, str2, options) {
           }
         } while (repeat)
 
+        /* istanbul ignore else */
         if (!trueDiffObj.code) {
 
           var trueDiff = trueDiffObj.stdout
