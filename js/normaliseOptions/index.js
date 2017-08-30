@@ -11,7 +11,7 @@ function toBoolean(bool) {
 
 function normaliseOptions(options) {
 
-  var DEFAULTS = require('./defaultOptions')
+  var DEFAULTS = require('../_shared/defaultOptions')
 
   if (options == null) {
 
