@@ -33,5 +33,6 @@
     ]
   },
   "globals": {
+    "Promise": false
   }
 }
