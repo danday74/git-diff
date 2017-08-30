@@ -13,3 +13,7 @@
 * promise based coz real takes a while? sync and async versions?
 
 * test Linux and Windows line endings
+
+* one liners
+
+* test names
