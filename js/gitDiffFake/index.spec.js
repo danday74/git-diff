@@ -36,6 +36,17 @@ describe('gitDiffFake', function() {
       imp.expect(actual).to.equal(expected)
       imp.expect(imp.color.add).to.have.not.been.called
     })
+
+    it('one liner', function() {
+      var actual = gitDiffFake('my first string', 'my second string', {wordDiff: false})
+      imp.expect(actual).to.equal('-my first string\n+my second string\n')
+    })
+
+    it('no difference', function() {
+      var actual = gitDiffFake('', '', {color: true, wordDiff: false})
+      imp.expect(actual).to.be.undefined
+      imp.expect(imp.color.add).to.have.not.been.called
+    })
   })
 
   describe('word difference', function() {
@@ -55,11 +66,16 @@ describe('gitDiffFake', function() {
       imp.expect(actual).to.equal(expected)
       imp.expect(imp.color.add).to.have.not.been.called
     })
-  })
 
-  it('no difference', function() {
-    var actual = gitDiffFake('', '', {color: true})
-    imp.expect(actual).to.be.undefined
-    imp.expect(imp.color.add).to.have.not.been.called
+    it('one liner', function() {
+      var actual = gitDiffFake('my first string', 'my second string', {wordDiff: true})
+      imp.expect(actual).to.equal('my [-first-]{+second+} string')
+    })
+
+    it('no difference', function() {
+      var actual = gitDiffFake('', '', {color: true, wordDiff: true})
+      imp.expect(actual).to.be.undefined
+      imp.expect(imp.color.add).to.have.not.been.called
+    })
   })
 })
