@@ -18,9 +18,6 @@ function isGitDir() {
 
 function KeepIt() {
   this.real = function() {
-    console.log('isPrintf', isPrintf())
-    console.log('isGit', isGit())
-    console.log('isGitDir', isGitDir())
     return isPrintf() && isGit() && isGitDir()
   }
 }
