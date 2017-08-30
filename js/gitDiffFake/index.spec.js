@@ -1,8 +1,7 @@
 'use strict'
 
-var DEFAULTS = require('../_shared/defaultOptions')
-var imp = require('../../test/_js/testImports')
 var gitDiffFake = require('./index')
+var imp = require('../../test/_js/testImports')
 
 var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', {throw: true, save: true})
 var str2 = imp.readfilego(__dirname + '/../_shared/str2.txt')
@@ -26,16 +25,16 @@ describe('gitDiffFake', function() {
 
     it('color', function() {
       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: false})
+      imp.expect(actual).to.equal(expected)
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
-      imp.expect(actual).to.equal(expected)
     })
 
     it('no color', function() {
       var actual = gitDiffFake(str1, str2, {color: false, wordDiff: false})
-      imp.expect(imp.color.add).to.have.not.been.called
       imp.expect(actual).to.equal(expected)
+      imp.expect(imp.color.add).to.have.not.been.called
     })
   })
 
@@ -45,22 +44,22 @@ describe('gitDiffFake', function() {
 
     it('color', function() {
       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: true})
+      imp.expect(actual).to.equal(expected)
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
       imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
-      imp.expect(actual).to.equal(expected)
     })
 
     it('no color', function() {
       var actual = gitDiffFake(str1, str2, {color: false, wordDiff: true})
-      imp.expect(imp.color.add).to.have.not.been.called
       imp.expect(actual).to.equal(expected)
+      imp.expect(imp.color.add).to.have.not.been.called
     })
   })
 
   it('no difference', function() {
-    var actual = gitDiffFake('', '', {color: DEFAULTS.color})
-    imp.expect(imp.color.add).to.have.not.been.called
+    var actual = gitDiffFake('', '', {color: true})
     imp.expect(actual).to.be.undefined
+    imp.expect(imp.color.add).to.have.not.been.called
   })
 })
