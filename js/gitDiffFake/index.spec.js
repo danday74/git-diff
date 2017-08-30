@@ -3,8 +3,8 @@
 var gitDiffFake = require('./index')
 var imp = require('../../test/_js/testImports')
 
-var str1 = imp.readfilego(__dirname + '/../_shared/str1.txt', {throw: true, save: true})
-var str2 = imp.readfilego(__dirname + '/../_shared/str2.txt')
+var str1 = imp.data.str1
+var str2 = imp.data.str2
 
 describe('gitDiffFake', function() {
 
@@ -21,7 +21,7 @@ describe('gitDiffFake', function() {
 
   describe('line difference', function() {
 
-    var expected = imp.readfilego(__dirname + '/../_shared/lineDiffVim.txt').replace(/^@@.+@@\n/, '')
+    var expected = imp.data.lineDiffVim.replace(/^@@.+@@\n/, '')
 
     it('color', function() {
       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: false})
@@ -51,7 +51,7 @@ describe('gitDiffFake', function() {
 
   describe('word difference', function() {
 
-    var expected = imp.readfilego(__dirname + '/../_shared/wordDiffFake.txt').replace(/^@@.+@@\n/, '')
+    var expected = imp.data.wordDiffFake.replace(/^@@.+@@\n/, '')
 
     it('color', function() {
       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: true})
