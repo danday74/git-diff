@@ -3,7 +3,6 @@
 var logger = require('loglevel')
 var shell = require('shelljs')
 var keepIt = require('./keepIt')
-var DEFAULTS = require('../_shared/defaultOptions')
 var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
 
 logger.setLevel('info')
@@ -13,6 +12,8 @@ logger.setLevel('info')
 // git diff $(printf 'This is a test for my diff tool\nIt is a big test\n\nNo diff here\n\nBut there might be here\nBut not here\n\nOr here\n' | git hash-object -w --stdin) $(printf 'This is a test for my difference tool\nIt is a small test\n\nNo diff here\n\nBut there might be here!\nBut not here\n\nOr here\n' | git hash-object -w --stdin) --word-diff
 
 var gitDiffReal = function(str1, str2, options) {
+
+  var DEFAULTS = require('../_shared/defaultOptions')
 
   if (keepIt.real()) {
 

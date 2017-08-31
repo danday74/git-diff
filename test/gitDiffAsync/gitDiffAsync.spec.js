@@ -3,7 +3,6 @@
 var imp = require('../_js/testImports')
 var gitDiffAsync = require('../../index').async
 var pkg = require('../../package.json')
-var DEFAULTS = require('../../js/_shared/defaultOptions')
 
 var GREEN = '\u001b[32m'
 var RED = '\u001b[31m'
@@ -12,7 +11,7 @@ var str2 = imp.data.str2
 
 describe('gitDiffAsync', function() {
 
-  var sandbox
+  var DEFAULTS, sandbox
 
   describe('real is available', function() {
 
@@ -21,6 +20,8 @@ describe('gitDiffAsync', function() {
     })
 
     beforeEach(function() {
+      delete require.cache[require.resolve('../../js/_shared/defaultOptions')]
+      DEFAULTS = require('../../js/_shared/defaultOptions')
       sandbox = imp.sinon.sandbox.create()
       sandbox.spy(imp.loglevel, 'info')
       sandbox.spy(imp.loglevel, 'warn')
@@ -329,12 +330,21 @@ describe('gitDiffAsync', function() {
 
       gitDiffAsync(str1, str2, {forceFake: true}).then(function(actual) {
         imp.expect(actual).to.equal(lineDiffFake)
+        imp.expect(DEFAULTS.forceFake).to.be.false
+        imp.expect(DEFAULTS.save).to.be.false
+        imp.expect(DEFAULTS.wordDiff).to.be.false
         return gitDiffAsync(str1, str2, {forceFake: true, save: true, wordDiff: true})
       }).then(function(actual) {
         imp.expect(actual).to.equal(wordDiffFake)
+        imp.expect(DEFAULTS.forceFake).to.be.true
+        imp.expect(DEFAULTS.save).to.be.false
+        imp.expect(DEFAULTS.wordDiff).to.be.true
         return gitDiffAsync(str1, str2)
       }).then(function(actual) {
         imp.expect(actual).to.equal(wordDiffFake)
+        imp.expect(DEFAULTS.forceFake).to.be.true
+        imp.expect(DEFAULTS.save).to.be.false
+        imp.expect(DEFAULTS.wordDiff).to.be.true
         done()
       })
     })
