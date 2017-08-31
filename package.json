@@ -21,8 +21,21 @@
   "homepage": "https://github.com/danday74/git-diff#readme",
   "keywords": [
     "diff",
+    "differ",
+    "difference",
     "git diff",
-    "string diff"
+    "git differ",
+    "git difference",
+    "string diff",
+    "string differ",
+    "string difference",
+    "diff tool",
+    "differ tool",
+    "difference tool",
+    "xxxxxxxxxx",
+    "difftool",
+    "git difftool",
+    "git diff tool"
   ],
   "dependencies": {
     "chalk": "^2.1.0",
