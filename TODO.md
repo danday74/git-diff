@@ -6,6 +6,4 @@
 
 * Tidy code
 
-* test Linux and Windows line endings
-
-* test names
+* Test names
