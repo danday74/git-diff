@@ -23,7 +23,7 @@ function normaliseOptions(options) {
       options = {}
     }
 
-    if (options.color) {
+    if (typeof options.color !== 'undefined') {
       options.color = toBoolean(options.color)
     }
 
@@ -31,15 +31,15 @@ function normaliseOptions(options) {
       options.flags = DEFAULTS.flags
     }
 
-    if (options.forceFake) {
+    if (typeof options.forceFake !== 'undefined') {
       options.forceFake = toBoolean(options.forceFake)
     }
 
-    if (options.save) {
+    if (typeof options.save !== 'undefined') {
       options.save = toBoolean(options.save)
     }
 
-    if (options.wordDiff) {
+    if (typeof options.wordDiff !== 'undefined') {
       options.wordDiff = toBoolean(options.wordDiff)
     }
   }

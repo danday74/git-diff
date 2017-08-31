@@ -42,7 +42,7 @@
 //       })
 //
 //       it('no color', function() {
-//         var expected = imp.data.lineDiffVim
+//         var expected = imp.data.lineDiffRealVim
 //         var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(actual).to.not.include(RED)
@@ -101,15 +101,15 @@
 //
 //       it('valid', function() {
 //         var expected = imp.data.shortstatReal
-//         var actual = gitDiffReal(str1, str2, {flags: '--shortstat'})
+//         var actual = gitDiffReal(str1, str2, {color: false, flags: '--shortstat'})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(imp.loglevel.warn).to.have.not.been.called
 //         imp.expect(imp.loglevel.info).to.have.not.been.called
 //       })
 //
 //       it('invalid', function() {
-//         var actual = gitDiffReal(str1, str2, {flags: '--oops'})
-//         var expected = imp.data.lineDiffVim
+//         var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
+//         var expected = imp.data.lineDiffRealVim
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
 //         imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
@@ -117,7 +117,7 @@
 //
 //       it('invalid with valid default', function() {
 //         DEFAULTS.flags = '--shortstat'
-//         var actual = gitDiffReal(str1, str2, {flags: '--oops'})
+//         var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
 //         var expected = imp.data.shortstatReal
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(DEFAULTS.flags).to.equal('--shortstat')
@@ -128,8 +128,8 @@
 //
 //       it('invalid with invalid default', function() {
 //         DEFAULTS.flags = '--oops'
-//         var actual = gitDiffReal(str1, str2, {flags: '--oops'})
-//         var expected = imp.data.lineDiffVim
+//         var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
+//         var expected = imp.data.lineDiffRealVim
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(DEFAULTS.flags).to.equal(null)
 //         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')

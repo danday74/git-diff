@@ -2,6 +2,8 @@
 
 var imp = require('../_js/testImports')
 var gitDiffSync = require('../../index').sync
+var pkg = require('../../package.json')
+var DEFAULTS = require('../../js/_shared/defaultOptions')
 
 var GREEN = '\u001b[32m'
 var RED = '\u001b[31m'
@@ -12,18 +14,21 @@ describe('gitDiffSync', function() {
 
   var sandbox
 
-  // var sandbox
-  //
-  // beforeEach(function() {
-  //   sandbox = imp.sinon.sandbox.create()
-  //   sandbox.spy(imp.color, 'add')
-  // })
-  //
-  // afterEach(function() {
-  //   sandbox.restore()
-  // })
-
   describe('real is available', function() {
+
+    before(function() {
+      imp.loglevel.setLevel('silent')
+    })
+
+    beforeEach(function() {
+      sandbox = imp.sinon.sandbox.create()
+      sandbox.spy(imp.loglevel, 'info')
+      sandbox.spy(imp.loglevel, 'warn')
+    })
+
+    afterEach(function() {
+      sandbox.restore()
+    })
 
     describe('line difference', function() {
 
@@ -33,14 +38,14 @@ describe('gitDiffSync', function() {
 
       it('color', function() {
 
-        var actual = gitDiffSync(str1, str2)
+        var actual = gitDiffSync(str1, str2, 'not an object')
         imp.expect(actual).to.include(RED)
         imp.expect(actual).to.include(GREEN)
       })
 
       it('no color', function() {
 
-        var expected = imp.data.lineDiffVim
+        var expected = imp.data.lineDiffRealVim
         var actual = gitDiffSync(str1, str2, {color: false})
         imp.expect(actual).to.equal(expected)
         imp.expect(actual).to.not.include(RED)
@@ -90,6 +95,59 @@ describe('gitDiffSync', function() {
         imp.expect(actual).to.be.undefined
       })
     })
+
+    describe('flags', function() {
+
+      before(function() {
+        if (!imp.keepIt.real()) this.skip()
+      })
+
+      it('valid', function() {
+        var expected = imp.data.shortstatReal
+        var actual = gitDiffSync(str1, str2, {color: false, flags: '--shortstat'})
+        imp.expect(actual).to.equal(expected)
+        imp.expect(imp.loglevel.warn).to.have.not.been.called
+        imp.expect(imp.loglevel.info).to.have.not.been.called
+      })
+
+      it('not a string', function() {
+        var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
+        var expected = imp.data.lineDiffRealVim
+        imp.expect(actual).to.equal(expected)
+        imp.expect(imp.loglevel.warn).to.have.not.been.called
+        imp.expect(imp.loglevel.info).to.have.not.been.called
+      })
+
+      it('invalid', function() {
+        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+        var expected = imp.data.lineDiffRealVim
+        imp.expect(actual).to.equal(expected)
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+      })
+
+      it('invalid with valid default', function() {
+        DEFAULTS.flags = '--shortstat'
+        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+        var expected = imp.data.shortstatReal
+        imp.expect(actual).to.equal(expected)
+        imp.expect(DEFAULTS.flags).to.equal('--shortstat')
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('Using default git diff options: --shortstat')
+      })
+
+      it('invalid with invalid default', function() {
+        DEFAULTS.flags = '--oops'
+        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+        var expected = imp.data.lineDiffRealVim
+        imp.expect(actual).to.equal(expected)
+        imp.expect(DEFAULTS.flags).to.equal(null)
+        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+        imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
+      })
+    })
   })
 
   var testObjs = [{
@@ -121,7 +179,7 @@ describe('gitDiffSync', function() {
 
       describe('line difference', function() {
 
-        var expected = imp.data.lineDiffVim.replace(/^@@.+@@\n/, '')
+        var expected = imp.data.lineDiffFakeVim
 
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
@@ -156,7 +214,7 @@ describe('gitDiffSync', function() {
 
       describe('word difference', function() {
 
-        var expected = imp.data.wordDiffFake.replace(/^@@.+@@\n/, '')
+        var expected = imp.data.wordDiffFake
 
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
@@ -191,6 +249,41 @@ describe('gitDiffSync', function() {
           imp.expect(imp.color.add).to.have.not.been.called
         })
       })
+    })
+  })
+
+  describe('validate', function() {
+
+    it('str1 not a string', function() {
+      imp.expect(function() {
+        gitDiffSync(9, '')
+      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+    })
+
+    it('str2 not a string', function() {
+      imp.expect(function() {
+        gitDiffSync('', {})
+      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+    })
+  })
+
+  describe('save', function() {
+
+    it('save', function() {
+
+      var actual
+
+      var lineDiffFake = imp.data.lineDiffFakeVim
+      var wordDiffFake = imp.data.wordDiffFake
+
+      actual = gitDiffSync(str1, str2, {forceFake: true})
+      imp.expect(actual).to.equal(lineDiffFake)
+
+      actual = gitDiffSync(str1, str2, {forceFake: true, save: true, wordDiff: true})
+      imp.expect(actual).to.equal(wordDiffFake)
+
+      actual = gitDiffSync(str1, str2)
+      imp.expect(actual).to.equal(wordDiffFake)
     })
   })
 })

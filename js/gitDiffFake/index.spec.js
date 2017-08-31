@@ -21,7 +21,7 @@
 //
 //   describe('line difference', function() {
 //
-//     var expected = imp.data.lineDiffVim.replace(/^@@.+@@\n/, '')
+//     var expected = imp.data.lineDiffFakeVim
 //
 //     it('color', function() {
 //       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: false})
@@ -52,7 +52,7 @@
 //
 //   describe('word difference', function() {
 //
-//     var expected = imp.data.wordDiffFake.replace(/^@@.+@@\n/, '')
+//     var expected = imp.data.wordDiffFake
 //
 //     it('color', function() {
 //       var actual = gitDiffFake(str1, str2, {color: true, wordDiff: true})
