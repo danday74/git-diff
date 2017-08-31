@@ -3,4 +3,5 @@ test
 --recursive
 --reporter spec
 --require ./test/test.bootstrap
+--require ./test/server.bootstrap
 --slow 200

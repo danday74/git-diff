@@ -1,7 +1,5 @@
 * Add more keywords
 
-* carriage returns not \n
-
 * Update README
 
 * Update examples spec file

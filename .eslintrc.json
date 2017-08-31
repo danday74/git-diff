@@ -33,6 +33,8 @@
     ]
   },
   "globals": {
-    "Promise": false
+    "Promise": false,
+    "CR": false,
+    "CRE": false
   }
 }

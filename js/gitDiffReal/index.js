@@ -29,8 +29,8 @@ var gitDiffReal = function(str1, str2, options) {
     /* istanbul ignore else */
     if (!gitHashObj1.code && !gitHashObj2.code) {
 
-      var sha1 = gitHashObj1.stdout.replace('\n', '')
-      var sha2 = gitHashObj2.stdout.replace('\n', '')
+      var sha1 = gitHashObj1.stdout.replace(CR, '')
+      var sha2 = gitHashObj2.stdout.replace(CR, '')
 
       var sha1Test = SHA_REGEX.test(sha1)
       var sha2Test = SHA_REGEX.test(sha2)

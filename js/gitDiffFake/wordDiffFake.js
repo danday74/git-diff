@@ -7,7 +7,7 @@ function wordDiffFake(str1, str2, options) {
 
   var diff, isDiff, accumulatedDiff = ''
 
-  if (!str1.endsWith('\n') || !str2.endsWith('\n')) {
+  if (!CRE.test(str1) || !CRE.test(str2)) {
     str1 += '\n'
     str2 += '\n'
   }

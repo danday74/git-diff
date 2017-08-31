@@ -1,5 +1,7 @@
 'use strict'
 
+require('./test/server.bootstrap')
+
 var normaliseOptions = require('./js/normaliseOptions')
 var gitDiffFake = require('./js/gitDiffFake')
 var gitDiffReal = require('./js/gitDiffReal')

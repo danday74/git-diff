@@ -1,5 +1,7 @@
 'use strict'
 
+require('./test/server.bootstrap')
+
 var gitDiffSync = require('./index-sync')
 
 var gitDiffAsync = function(str1, str2, options) {
