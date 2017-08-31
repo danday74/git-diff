@@ -10,6 +10,7 @@ chai.use(sinonChai)
 
 // others
 var loglevel = require('loglevel')
+var using = require('data-driven')
 
 // custom
 var color = require('../../js/gitDiffFake/color')
@@ -20,6 +21,7 @@ var testImports = {
   expect: expect,
   sinon: sinon,
   loglevel: loglevel,
+  using: using,
   color: color,
   data: data,
   keepIt: keepIt
