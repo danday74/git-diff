@@ -1,7 +1,7 @@
 'use strict'
 
 var imp = require('../_js/testImports')
-var gitDiffSync = require('../../index').sync
+var gitDiffAsync = require('../../index').async
 var pkg = require('../../package.json')
 var DEFAULTS = require('../../js/_shared/defaultOptions')
 
@@ -36,31 +36,40 @@ describe('gitDiffAsync', function() {
         if (!imp.keepIt.real()) this.skip()
       })
 
-      it('color', function() {
+      it('color', function(done) {
 
-        var actual = gitDiffSync(str1, str2, 'not an object')
-        imp.expect(actual).to.include(RED)
-        imp.expect(actual).to.include(GREEN)
+        gitDiffAsync(str1, str2, 'not an object').then(function(actual) {
+          imp.expect(actual).to.include(RED)
+          imp.expect(actual).to.include(GREEN)
+          done()
+        })
       })
 
-      it('no color', function() {
+      it('no color', function(done) {
 
         var expected = imp.data.lineDiffRealVim
-        var actual = gitDiffSync(str1, str2, {color: false})
-        imp.expect(actual).to.equal(expected)
-        imp.expect(actual).to.not.include(RED)
-        imp.expect(actual).to.not.include(GREEN)
+        gitDiffAsync(str1, str2, {color: false}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.not.include(RED)
+          imp.expect(actual).to.not.include(GREEN)
+          done()
+        })
       })
 
-      it('one liner', function() {
+      it('one liner', function(done) {
+
         var expected = imp.data.oneLinerLineDiffReal
-        var actual = gitDiffSync('my first string', 'my second string', {color: false})
-        imp.expect(actual).to.equal(expected)
+        gitDiffAsync('my first string', 'my second string', {color: false}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          done()
+        })
       })
 
-      it('no difference', function() {
-        var actual = gitDiffSync('', '')
-        imp.expect(actual).to.be.undefined
+      it('no difference', function(done) {
+        gitDiffAsync('', '').then(function(actual) {
+          imp.expect(actual).to.be.undefined
+          done()
+        })
       })
     })
 
@@ -70,29 +79,37 @@ describe('gitDiffAsync', function() {
         if (!imp.keepIt.real()) this.skip()
       })
 
-      it('color', function() {
-        var actual = gitDiffSync(str1, str2, {wordDiff: true})
-        imp.expect(actual).to.include(RED)
-        imp.expect(actual).to.include(GREEN)
+      it('color', function(done) {
+        gitDiffAsync(str1, str2, {wordDiff: true}).then(function(actual) {
+          imp.expect(actual).to.include(RED)
+          imp.expect(actual).to.include(GREEN)
+          done()
+        })
       })
 
-      it('no color', function() {
+      it('no color', function(done) {
         var expected = imp.data.wordDiffReal
-        var actual = gitDiffSync(str1, str2, {color: false, wordDiff: true})
-        imp.expect(actual).to.equal(expected)
-        imp.expect(actual).to.not.include(RED)
-        imp.expect(actual).to.not.include(GREEN)
+        gitDiffAsync(str1, str2, {color: false, wordDiff: true}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.not.include(RED)
+          imp.expect(actual).to.not.include(GREEN)
+          done()
+        })
       })
 
-      it('one liner', function() {
+      it('one liner', function(done) {
         var expected = imp.data.oneLinerWordDiffReal
-        var actual = gitDiffSync('my first string', 'my second string', {color: false, wordDiff: true})
-        imp.expect(actual).to.equal(expected)
+        gitDiffAsync('my first string', 'my second string', {color: false, wordDiff: true}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          done()
+        })
       })
 
-      it('no difference', function() {
-        var actual = gitDiffSync('', '', {wordDiff: true})
-        imp.expect(actual).to.be.undefined
+      it('no difference', function(done) {
+        gitDiffAsync('', '', {wordDiff: true}).then(function(actual) {
+          imp.expect(actual).to.be.undefined
+          done()
+        })
       })
     })
 
@@ -102,50 +119,60 @@ describe('gitDiffAsync', function() {
         if (!imp.keepIt.real()) this.skip()
       })
 
-      it('valid', function() {
+      it('valid', function(done) {
         var expected = imp.data.shortstatReal
-        var actual = gitDiffSync(str1, str2, {color: false, flags: '--shortstat'})
-        imp.expect(actual).to.equal(expected)
-        imp.expect(imp.loglevel.warn).to.have.not.been.called
-        imp.expect(imp.loglevel.info).to.have.not.been.called
+        gitDiffAsync(str1, str2, {color: false, flags: '--shortstat'}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(imp.loglevel.warn).to.have.not.been.called
+          imp.expect(imp.loglevel.info).to.have.not.been.called
+          done()
+        })
       })
 
-      it('not a string', function() {
-        var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
+      it('not a string', function(done) {
         var expected = imp.data.lineDiffRealVim
-        imp.expect(actual).to.equal(expected)
-        imp.expect(imp.loglevel.warn).to.have.not.been.called
-        imp.expect(imp.loglevel.info).to.have.not.been.called
+        gitDiffAsync(str1, str2, {color: false, flags: 9}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(imp.loglevel.warn).to.have.not.been.called
+          imp.expect(imp.loglevel.info).to.have.not.been.called
+          done()
+        })
       })
 
-      it('invalid', function() {
-        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+      it('invalid', function(done) {
         var expected = imp.data.lineDiffRealVim
-        imp.expect(actual).to.equal(expected)
-        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+        gitDiffAsync(str1, str2, {color: false, flags: '--oops'}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          done()
+        })
       })
 
-      it('invalid with valid default', function() {
+      it('invalid with valid default', function(done) {
         DEFAULTS.flags = '--shortstat'
-        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
         var expected = imp.data.shortstatReal
-        imp.expect(actual).to.equal(expected)
-        imp.expect(DEFAULTS.flags).to.equal('--shortstat')
-        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
-        imp.expect(imp.loglevel.info).to.have.been.calledWith('Using default git diff options: --shortstat')
+        gitDiffAsync(str1, str2, {color: false, flags: '--oops'}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(DEFAULTS.flags).to.equal('--shortstat')
+          imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('Using default git diff options: --shortstat')
+          done()
+        })
       })
 
-      it('invalid with invalid default', function() {
+      it('invalid with invalid default', function(done) {
         DEFAULTS.flags = '--oops'
-        var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
         var expected = imp.data.lineDiffRealVim
-        imp.expect(actual).to.equal(expected)
-        imp.expect(DEFAULTS.flags).to.equal(null)
-        imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-        imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
-        imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
+        gitDiffAsync(str1, str2, {color: false, flags: '--oops'}).then(function(actual) {
+          imp.expect(actual).to.equal(expected)
+          imp.expect(DEFAULTS.flags).to.equal(null)
+          imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
+          done()
+        })
       })
     })
   })
@@ -181,34 +208,43 @@ describe('gitDiffAsync', function() {
 
         var expected = imp.data.lineDiffFakeVim
 
-        it('{testPrefix} color', function(testObj) {
+        it('{testPrefix} color', function(testObj, done) {
+
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, testObj.options)
-          imp.expect(actual).to.equal(expected)
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
+          gitDiffAsync(str1, str2, testObj.options).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
+            done()
+          })
         })
 
-        it('{testPrefix} no color', function(testObj) {
+        it('{testPrefix} no color', function(testObj, done) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, Object.assign({color: false}, testObj.options))
-          imp.expect(actual).to.equal(expected)
-          imp.expect(imp.color.add).to.have.not.been.called
+          gitDiffAsync(str1, str2, Object.assign({color: false}, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            imp.expect(imp.color.add).to.have.not.been.called
+            done()
+          })
         })
 
-        it('{testPrefix} one liner', function(testObj) {
+        it('{testPrefix} one liner', function(testObj, done) {
           if (testObj.stub) stub()
           var expected = imp.data.oneLinerLineDiffFake
-          var actual = gitDiffSync('my first string', 'my second string', Object.assign({color: false}, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          gitDiffAsync('my first string', 'my second string', Object.assign({color: false}, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            done()
+          })
         })
 
-        it('{testPrefix} no difference', function(testObj) {
+        it('{testPrefix} no difference', function(testObj, done) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('', '', testObj.options)
-          imp.expect(actual).to.be.undefined
-          imp.expect(imp.color.add).to.have.not.been.called
+          gitDiffAsync('', '', testObj.options).then(function(actual) {
+            imp.expect(actual).to.be.undefined
+            imp.expect(imp.color.add).to.have.not.been.called
+            done()
+          })
         })
       })
 
@@ -216,37 +252,48 @@ describe('gitDiffAsync', function() {
 
         var expected = imp.data.wordDiffFake
 
-        it('{testPrefix} color', function(testObj) {
+        it('{testPrefix} color', function(testObj, done) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, Object.assign({wordDiff: true}, testObj.options))
-          imp.expect(actual).to.equal(expected)
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
+          gitDiffAsync(str1, str2, Object.assign({wordDiff: true}, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
+            imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
+            done()
+          })
         })
 
-        it('{testPrefix} no color', function(testObj) {
+        it('{testPrefix} no color', function(testObj, done) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, Object.assign({color: false, wordDiff: true}, testObj.options))
-          imp.expect(actual).to.equal(expected)
-          imp.expect(imp.color.add).to.have.not.been.called
-        })
-
-        it('{testPrefix} one liner', function(testObj) {
-          if (testObj.stub) stub()
-          var expected = imp.data.oneLinerWordDiffFake
-          var actual = gitDiffSync('my first string', 'my second string', Object.assign({
+          gitDiffAsync(str1, str2, Object.assign({
             color: false,
             wordDiff: true
-          }, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          }, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            imp.expect(imp.color.add).to.have.not.been.called
+            done()
+          })
         })
 
-        it('{testPrefix} no difference', function(testObj) {
+        it('{testPrefix} one liner', function(testObj, done) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('', '', Object.assign({wordDiff: true}, testObj.options))
-          imp.expect(actual).to.be.undefined
-          imp.expect(imp.color.add).to.have.not.been.called
+          var expected = imp.data.oneLinerWordDiffFake
+          gitDiffAsync('my first string', 'my second string', Object.assign({
+            color: false,
+            wordDiff: true
+          }, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            done()
+          })
+        })
+
+        it('{testPrefix} no difference', function(testObj, done) {
+          if (testObj.stub) stub()
+          gitDiffAsync('', '', Object.assign({wordDiff: true}, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.be.undefined
+            imp.expect(imp.color.add).to.have.not.been.called
+            done()
+          })
         })
       })
     })
@@ -254,36 +301,42 @@ describe('gitDiffAsync', function() {
 
   describe('validate', function() {
 
-    it('str1 not a string', function() {
-      imp.expect(function() {
-        gitDiffSync(9, '')
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+    it('str1 not a string', function(done) {
+
+      gitDiffAsync(9, '').catch(function(err) {
+        imp.expect(err).to.be.an.instanceof(TypeError)
+        imp.expect(err.message).to.equal('Both inputs to ' + pkg.name + ' must be strings')
+        done()
+      })
     })
 
-    it('str2 not a string', function() {
-      imp.expect(function() {
-        gitDiffSync('', {})
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+    it('str2 not a string', function(done) {
+
+      gitDiffAsync('', {}).catch(function(err) {
+        imp.expect(err).to.be.an.instanceof(TypeError)
+        imp.expect(err.message).to.equal('Both inputs to ' + pkg.name + ' must be strings')
+        done()
+      })
     })
   })
 
   describe('save', function() {
 
-    it('save', function() {
-
-      var actual
+    it('save', function(done) {
 
       var lineDiffFake = imp.data.lineDiffFakeVim
       var wordDiffFake = imp.data.wordDiffFake
 
-      actual = gitDiffSync(str1, str2, {forceFake: true})
-      imp.expect(actual).to.equal(lineDiffFake)
-
-      actual = gitDiffSync(str1, str2, {forceFake: true, save: true, wordDiff: true})
-      imp.expect(actual).to.equal(wordDiffFake)
-
-      actual = gitDiffSync(str1, str2)
-      imp.expect(actual).to.equal(wordDiffFake)
+      gitDiffAsync(str1, str2, {forceFake: true}).then(function(actual) {
+        imp.expect(actual).to.equal(lineDiffFake)
+        return gitDiffAsync(str1, str2, {forceFake: true, save: true, wordDiff: true})
+      }).then(function(actual) {
+        imp.expect(actual).to.equal(wordDiffFake)
+        return gitDiffAsync(str1, str2)
+      }).then(function(actual) {
+        imp.expect(actual).to.equal(wordDiffFake)
+        done()
+      })
     })
   })
 })

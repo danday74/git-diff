@@ -111,16 +111,16 @@
 //       })
 //
 //       it('not a string', function() {
-//         var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
 //         var expected = imp.data.lineDiffRealVim
+//         var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(imp.loglevel.warn).to.have.not.been.called
 //         imp.expect(imp.loglevel.info).to.have.not.been.called
 //       })
 //
 //       it('invalid', function() {
-//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         var expected = imp.data.lineDiffRealVim
+//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
 //         imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
@@ -128,8 +128,8 @@
 //
 //       it('invalid with valid default', function() {
 //         DEFAULTS.flags = '--shortstat'
-//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         var expected = imp.data.shortstatReal
+//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(DEFAULTS.flags).to.equal('--shortstat')
 //         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
@@ -139,8 +139,8 @@
 //
 //       it('invalid with invalid default', function() {
 //         DEFAULTS.flags = '--oops'
-//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         var expected = imp.data.lineDiffRealVim
+//         var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
 //         imp.expect(actual).to.equal(expected)
 //         imp.expect(DEFAULTS.flags).to.equal(null)
 //         imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
