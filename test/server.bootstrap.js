@@ -1,2 +1,2 @@
-global.CR = /[\r\n]/
-global.CRE = /[\r\n]$/
+global.CR = /(?:\r?\n|\r)/
+global.CRE = /(?:\r?\n|\r)$/
