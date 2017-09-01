@@ -5,3 +5,5 @@
 * Tidy code
 
 * Test names
+
+* Fix replaceAllButLast
