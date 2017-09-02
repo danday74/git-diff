@@ -191,6 +191,8 @@ describe('gitDiffAsync', function() {
   describe('real is unavailable', function() {
 
     beforeEach(function() {
+      delete require.cache[require.resolve('../../js/_shared/defaultOptions')]
+      DEFAULTS = require('../../js/_shared/defaultOptions')
       sandbox = imp.sinon.sandbox.create()
       sandbox.spy(imp.color, 'add')
     })
