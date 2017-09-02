@@ -3,11 +3,13 @@
 var jsDiff = require('diff')
 var color = require('./color')
 
-function replaceAllButLast(str, splitRegex, pOld, pNew) {
-  var parts = str.split(splitRegex)
-  /* istanbul ignore if */
-  if (parts.length === 1) return str
-  return parts.slice(0, -1).join(pNew) + pOld + parts.slice(-1)
+function appendAllButLast(str, regex, append) {
+  var reg = new RegExp(regex, 'g')
+  return str.replace(reg, function(match, offset, str) {
+    var follow = str.slice(offset)
+    var isLast = follow.match(reg).length == 1
+    return (isLast) ? match : match + append
+  })
 }
 
 function lineDiffFake(str1, str2, options) {
@@ -38,7 +40,7 @@ function lineDiffFake(str1, str2, options) {
         culla = 'reset'
         prefix = ' '
       }
-      part.value = replaceAllButLast(part.value, CR, '\n', '\n' + prefix)
+      part.value = appendAllButLast(part.value, CR, prefix)
       part.diff = prefix + part.value
       if (options.color) part.diff = color.add(part.diff, culla)
       accumulatedDiff += part.diff
