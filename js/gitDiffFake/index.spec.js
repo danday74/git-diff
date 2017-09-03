@@ -48,6 +48,18 @@ describe('gitDiffFake', function() {
       imp.expect(actual).to.be.undefined
       imp.expect(imp.color.add).to.have.not.been.called
     })
+
+    it('line endings', function() {
+      var expected, actual
+
+      expected = imp.data.endingsLinuxLineDiff
+      actual = gitDiffFake('my first\nstring', 'my second\nstring', {color: false, wordDiff: false})
+      imp.expect(actual).to.equal(expected)
+
+      expected = imp.data.endingsWindowsLineDiff
+      actual = gitDiffFake('my first\r\nstring', 'my second\r\nstring', {color: false, wordDiff: false})
+      imp.expect(actual).to.equal(expected)
+    })
   })
 
   describe('word difference', function() {
@@ -78,6 +90,18 @@ describe('gitDiffFake', function() {
       var actual = gitDiffFake('', '', {color: true, wordDiff: true})
       imp.expect(actual).to.be.undefined
       imp.expect(imp.color.add).to.have.not.been.called
+    })
+
+    it('line endings', function() {
+      var expected, actual
+
+      expected = imp.data.endingsLinuxWordDiff
+      actual = gitDiffFake('my first\nstring', 'my second\nstring', {color: false, wordDiff: true})
+      imp.expect(actual).to.equal(expected)
+
+      expected = imp.data.endingsWindowsWordDiff
+      actual = gitDiffFake('my first\r\nstring', 'my second\r\nstring', {color: false, wordDiff: true})
+      imp.expect(actual).to.equal(expected)
     })
   })
 })

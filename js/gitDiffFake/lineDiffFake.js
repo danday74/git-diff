@@ -2,6 +2,7 @@
 
 var jsDiff = require('diff')
 var color = require('./color')
+var mostCommonLineEnding = require('./mostCommonLineEnding')
 
 function appendAllButLast(str, regex, append) {
   var reg = new RegExp(regex, 'g')
@@ -17,8 +18,9 @@ function lineDiffFake(str1, str2, options) {
   var diff, isDiff, accumulatedDiff = ''
 
   if (!CRE.test(str1) || !CRE.test(str2)) {
-    str1 += '\n'
-    str2 += '\n'
+    var mcle = mostCommonLineEnding(str1, str2)
+    str1 += mcle
+    str2 += mcle
   }
 
   diff = jsDiff.diffLines(str1, str2)

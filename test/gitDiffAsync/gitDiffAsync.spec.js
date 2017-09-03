@@ -249,6 +249,28 @@ describe('gitDiffAsync', function() {
             done()
           })
         })
+
+        it('{testPrefix} line endings', function(testObj, done) {
+          if (testObj.stub) stub()
+
+          var expected
+
+          expected = imp.data.endingsLinuxLineDiff
+          gitDiffAsync('my first\nstring', 'my second\nstring', Object.assign({
+            color: false,
+            wordDiff: false
+          }, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            expected = imp.data.endingsWindowsLineDiff
+            return gitDiffAsync('my first\r\nstring', 'my second\r\nstring', Object.assign({
+              color: false,
+              wordDiff: false
+            }, testObj.options))
+          }).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            done()
+          })
+        })
       })
 
       describe('word difference', function() {
@@ -295,6 +317,28 @@ describe('gitDiffAsync', function() {
           gitDiffAsync('', '', Object.assign({wordDiff: true}, testObj.options)).then(function(actual) {
             imp.expect(actual).to.be.undefined
             imp.expect(imp.color.add).to.have.not.been.called
+            done()
+          })
+        })
+
+        it('{testPrefix} line endings', function(testObj, done) {
+          if (testObj.stub) stub()
+
+          var expected
+
+          expected = imp.data.endingsLinuxWordDiff
+          gitDiffAsync('my first\nstring', 'my second\nstring', Object.assign({
+            color: false,
+            wordDiff: true
+          }, testObj.options)).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
+            expected = imp.data.endingsWindowsWordDiff
+            return gitDiffAsync('my first\r\nstring', 'my second\r\nstring', Object.assign({
+              color: false,
+              wordDiff: true
+            }, testObj.options))
+          }).then(function(actual) {
+            imp.expect(actual).to.equal(expected)
             done()
           })
         })

@@ -9,8 +9,6 @@ var validate = require('./js/validate')
 
 var gitDiffSync = function(str1, str2, options) {
 
-
-
   validate(str1, str2)
   options = normaliseOptions(options)
 

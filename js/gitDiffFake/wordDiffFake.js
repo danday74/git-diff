@@ -2,14 +2,17 @@
 
 var jsDiff = require('diff')
 var color = require('./color')
+var mostCommonLineEnding = require('./mostCommonLineEnding')
 
 function wordDiffFake(str1, str2, options) {
 
   var diff, isDiff, accumulatedDiff = ''
 
+  // TODO: Is this needed?
   if (!CRE.test(str1) || !CRE.test(str2)) {
-    str1 += '\n'
-    str2 += '\n'
+    var mcle = mostCommonLineEnding(str1, str2)
+    str1 += mcle
+    str2 += mcle
   }
 
   diff = jsDiff.diffWordsWithSpace(str1, str2)

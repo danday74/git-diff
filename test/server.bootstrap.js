@@ -1,3 +1,3 @@
-global.CR = /(?:\r?\n|\r)/
-global.CRE = /(?:\r?\n|\r)$/
-global.CRS = '(?:\r?\n|\r)'
+global.CR = /(?:\r?\n)/
+global.CRE = /(?:\r?\n)$/
+global.CRS = '(?:\r?\n)'
