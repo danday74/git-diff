@@ -40,7 +40,7 @@ function lineDiffFake(str1, str2, options) {
         culla = 'reset'
         prefix = ' '
       }
-      part.value = appendAllButLast(part.value, CR, prefix)
+      part.value = appendAllButLast(part.value, CRS, prefix)
       part.diff = prefix + part.value
       if (options.color) part.diff = color.add(part.diff, culla)
       accumulatedDiff += part.diff

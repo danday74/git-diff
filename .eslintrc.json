@@ -35,6 +35,7 @@
   "globals": {
     "Promise": false,
     "CR": false,
-    "CRE": false
+    "CRE": false,
+    "CRS": false
   }
 }
