@@ -178,6 +178,7 @@ describe('gitDiffSync', function() {
 
       function stub() {
         sandbox.stub(imp.keepIt, 'real').returns(false)
+        sandbox.stub(imp.keepIt, 'realNoRepo').returns(false)
       }
 
       describe('line difference', function() {

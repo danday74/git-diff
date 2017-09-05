@@ -2,11 +2,6 @@
 
 var shell = require('shelljs')
 
-function isPrintf() {
-  var printf = shell.which('printf')
-  return !!(printf && printf.code === 0)
-}
-
 function isGit() {
   var git = shell.which('git')
   return !!(git && git.code === 0)
@@ -16,9 +11,27 @@ function isGitDir() {
   return shell.exec('git rev-parse --is-inside-work-tree', {silent: true}).code === 0
 }
 
+function isMkTemp() {
+  var mktemp = shell.which('mktemp')
+  return !!(mktemp && mktemp.code === 0)
+}
+
+function isPrintf() {
+  var printf = shell.which('printf')
+  return !!(printf && printf.code === 0)
+}
+
 function KeepIt() {
+
+  this.git = this.git || isGit()
+  this.printf = this.printf || isPrintf()
+
   this.real = function() {
-    return isPrintf() && isGit() && isGitDir()
+    return this.printf && this.git && isGitDir()
+  }
+
+  this.realNoRepo = function() {
+    return this.printf && this.git && isMkTemp()
   }
 }
 
