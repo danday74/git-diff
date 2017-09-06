@@ -134,6 +134,13 @@ describe('gitDiffReal', function() {
           }
         })
 
+        it('{testPrefix} GIT_DIR', function(testObj) {
+          if (testObj.stub) stub()
+          var expected = imp.data.shortstatReal
+          var actual = gitDiffReal(str1, str2, {color: false, flags: '--shortstat'})
+          imp.expect(actual).to.equal(expected)
+        })
+
         it('{testPrefix} valid', function(testObj) {
           if (testObj.stub) stub()
           var expected = imp.data.shortstatReal
