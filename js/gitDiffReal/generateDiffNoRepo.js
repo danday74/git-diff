@@ -16,18 +16,7 @@ function generateDiffNoRepo(str1, str2, options) {
     /* istanbul ignore else */
     if (gitInitObj.code === 0) {
 
-      var oldGitDir = process.env.GIT_DIR
-      process.env.GIT_DIR = tempDir + '/.git'
-
-      var diff = generateDiff(str1, str2, options)
-
-      delete process.env.GIT_DIR
-
-      if (oldGitDir) {
-        process.env.GIT_DIR = oldGitDir
-      }
-
-      return diff
+      return generateDiff(str1, str2, options, tempDir + '/.git')
     }
   }
   /* istanbul ignore next */
