@@ -12,8 +12,6 @@
 
 * Write more tests for keepIt.realNoRepo()
 
-* Restore async testing
-
 * Ensure tests pass in WebStorm
 
 * Test outside git dir

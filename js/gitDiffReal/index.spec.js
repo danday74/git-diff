@@ -20,7 +20,6 @@ describe('gitDiffReal', function() {
     stub: true
   }]
 
-
   imp.using(testObjs, function() {
 
     function stub() {
