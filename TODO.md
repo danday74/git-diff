@@ -10,8 +10,10 @@
 
 * TODOs
 
-* Write more tests for keepIt.realNoRepo()
+* Test to pass:
 
-* Ensure tests pass in WebStorm
-
-* Test outside git dir
+  in WebStorm
+  
+  git dir
+  
+  no git dir
