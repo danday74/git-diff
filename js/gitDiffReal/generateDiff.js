@@ -85,6 +85,7 @@ function generateDiff(str1, str2, options) {
       }
     }
   }
+  /* istanbul ignore next */
   return undefined
 }
 

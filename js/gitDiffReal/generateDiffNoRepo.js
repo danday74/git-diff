@@ -30,6 +30,7 @@ function generateDiffNoRepo(str1, str2, options) {
       return diff
     }
   }
+  /* istanbul ignore next */
   return undefined
 }
 
