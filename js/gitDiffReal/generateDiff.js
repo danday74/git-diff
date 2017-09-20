@@ -1,7 +1,7 @@
 'use strict'
 
+var exec = require('shelljs.exec')
 var logger = require('loglevel')
-var shell = require('shelljs')
 var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
 
 logger.setLevel('info')
@@ -27,8 +27,8 @@ function generateDiff(str1, str2, options, gitDir) {
   var gitHashCmd1 = 'printf \'' + stringify1 + '\' | git ' + gitDir + ' hash-object -w --stdin'
   var gitHashCmd2 = 'printf \'' + stringify2 + '\' | git ' + gitDir + ' hash-object -w --stdin'
 
-  var gitHashObj1 = shell.exec(gitHashCmd1, {silent: true})
-  var gitHashObj2 = shell.exec(gitHashCmd2, {silent: true})
+  var gitHashObj1 = exec(gitHashCmd1, {silent: true})
+  var gitHashObj2 = exec(gitHashCmd2, {silent: true})
 
   /* istanbul ignore else */
   if (gitHashObj1.code === 0 && gitHashObj2.code === 0) {
@@ -62,7 +62,7 @@ function generateDiff(str1, str2, options, gitDir) {
 
         var newCommand = 'git ' + gitDir + ' diff ' + sha1 + ' ' + sha2 + flags
 
-        trueDiffObj = shell.exec(newCommand, {silent: true})
+        trueDiffObj = exec(newCommand, {silent: true})
 
         if (trueDiffObj.code === 129 && trueDiffObj.stderr.indexOf('usage') > -1) {
           logger.warn('Ignoring invalid git diff options: ' + options.flags)

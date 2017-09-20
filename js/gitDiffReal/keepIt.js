@@ -1,5 +1,6 @@
 'use strict'
 
+var exec = require('shelljs.exec')
 var shell = require('shelljs')
 
 function isGit() {
@@ -8,7 +9,7 @@ function isGit() {
 }
 
 function isGitDir() {
-  return shell.exec('git rev-parse --is-inside-work-tree', {silent: true}).code === 0
+  return exec('git rev-parse --is-inside-work-tree', {silent: true}).code === 0
 }
 
 function isMkTemp() {
