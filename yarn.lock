@@ -496,9 +496,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.7.1.tgz#849804136953ebe366782f9f8611e2cbd1b54681"
+eslint@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.7.2.tgz#ff6f5f5193848a27ee9b627be3e73fb9cb5e662e"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -1498,9 +1498,9 @@ readable-stream@~1.0.2:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readfilego@^1.0.3:
+readfile-go@^1.0.3:
   version "1.0.3"
-  resolved "https://registry.yarnpkg.com/readfilego/-/readfilego-1.0.3.tgz#7e64eae343c0611de92a3e65d039f5ce7681f9bf"
+  resolved "https://registry.yarnpkg.com/readfile-go/-/readfile-go-1.0.3.tgz#bd2271573d53678b088beaaf94a4f71fb1d96466"
 
 rechoir@^0.6.2:
   version "0.6.2"
@@ -1624,9 +1624,9 @@ shell-quote@^1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-shelljs.exec@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.0.tgz#e67b19b3c5b001a89429d35c323905e228ef9b26"
+shelljs.exec@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.3.tgz#1016c222dc4de3d5531f2860700c2b46cf76c95d"
 
 shelljs@^0.7.8:
   version "0.7.8"
@@ -1847,8 +1847,8 @@ tmpl@1.0.x:
   resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
 
 tough-cookie@~2.3.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.2.tgz#f081f76e4c85720e6c37a5faced737150d84072a"
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.3.tgz#0b618a5565b6dea90bf3425d04d55edc475a7561"
   dependencies:
     punycode "^1.4.1"
 
