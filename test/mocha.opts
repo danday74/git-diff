@@ -4,5 +4,5 @@ test
 --reporter spec
 --require ./test/test.bootstrap
 --require ./test/server.bootstrap
---slow 200
+--slow 500
 --timeout 10000
