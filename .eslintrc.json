@@ -1,10 +1,10 @@
 {
   "env": {
-    "es6": false,
-    "node": true,
     "browser": false,
+    "es6": false,
     "jasmine": false,
-    "mocha": true
+    "mocha": true,
+    "node": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
