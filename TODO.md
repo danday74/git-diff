@@ -1,3 +1,5 @@
+* Ensure recent changes in place
+
 * Test names
 
 * Tidy code
