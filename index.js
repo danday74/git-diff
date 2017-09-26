@@ -1,5 +1,5 @@
-var async = require('./index-async')
-var sync = require('./index-sync')
+var async = require('./async')
+var sync = require('./sync')
 
 module.exports = {
   async: async,
