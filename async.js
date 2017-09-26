@@ -2,7 +2,7 @@
 
 require('./test/server.bootstrap')
 
-var gitDiffSync = require('./index-sync')
+var gitDiffSync = require('./sync')
 
 var gitDiffAsync = function(str1, str2, options) {
 
