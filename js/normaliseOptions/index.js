@@ -21,7 +21,8 @@ function normaliseOptions(options) {
       options.color = toBoolean(options.color)
     }
 
-    if (options.flags && typeof options.flags !== 'string') {
+    // null is allowed here (default)
+    if (options.flags != null && typeof options.flags !== 'string') {
       options.flags = DEFAULTS.flags
     }
 
