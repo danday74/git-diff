@@ -13,15 +13,9 @@ function normaliseOptions(options) {
 
   var DEFAULTS = require('../_shared/defaultOptions')
 
-  if (options == null) {
-
+  if (!isObject(options)) {
     options = {}
-
   } else {
-
-    if (!isObject(options)) {
-      options = {}
-    }
 
     if (typeof options.color !== 'undefined') {
       options.color = toBoolean(options.color)
