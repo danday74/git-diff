@@ -8,7 +8,6 @@ function wordDiffFake(str1, str2, options) {
 
   var diff, isDiff, accumulatedDiff = ''
 
-  // TODO: Is this needed?
   if (!CRE.test(str1) || !CRE.test(str2)) {
     var mcle = mostCommonLineEnding(str1, str2)
     str1 += mcle
