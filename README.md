@@ -25,12 +25,12 @@ git-diff returns a string containing the difference
 The color flag (defaults to false) indicates whether you want the return value to be colorized with [chalk](https://www.npmjs.com/package/chalk)
 
 Examples to demonstrate usage follow.
- 
+
 With color:
 
 ```javascript 1.5
 var gitDiff = require('git-diff')
-var actual = gitDiff('a\nb\n', 'a\nc\n', true)
+var actual = gitDiff('a\nb\n', 'a\nc\n', {color: true})
 expect(actual).to.equal('a\n-b\n+c\n')
 ```
 
