@@ -1,7 +1,7 @@
 'use strict'
 
 var imp = require('../_js/testImports')
-var gitDiffAsync = require('../../index').async
+var gitDiffAsync = require('../../async')
 var pkg = require('../../package.json')
 
 var str1 = imp.data.str1

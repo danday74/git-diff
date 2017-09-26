@@ -21,7 +21,7 @@
 git-diff takes 3 arguments, the **first string to diff**, the **second string to diff** and optionally a **color flag (boolean)**
 
 git-diff returns a string containing the difference
- 
+
 The color flag (defaults to false) indicates whether you want the return value to be colorized with [chalk](https://www.npmjs.com/package/chalk)
 
 Examples to demonstrate usage follow.

@@ -1,7 +1,7 @@
 'use strict'
 
 var imp = require('../_js/testImports')
-var gitDiffSync = require('../../index').sync
+var gitDiffSync = require('../../sync')
 var pkg = require('../../package.json')
 
 var GREEN = '\u001b[32m'
