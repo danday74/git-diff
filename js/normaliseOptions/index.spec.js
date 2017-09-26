@@ -24,6 +24,11 @@ describe('normaliseOptions', function() {
     imp.expect(actual).to.eql(expected)
   })
 
+  it('options is an empty object', function() {
+    actual = normaliseOptions({})
+    imp.expect(actual).to.eql(expected)
+  })
+
   it('color is a boolean', function() {
     actual = normaliseOptions({color: true})
     imp.expect(actual).to.eql(expected)
