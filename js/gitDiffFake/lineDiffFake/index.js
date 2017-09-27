@@ -1,8 +1,8 @@
 'use strict'
 
 var jsDiff = require('diff')
-var color = require('./color')
-var mostCommonLineEnding = require('./mostCommonLineEnding')
+var color = require('../color')
+var mostCommonLineEnding = require('../mostCommonLineEnding')
 
 function appendAllButLast(str, regex, append) {
   var reg = new RegExp(regex, 'g')

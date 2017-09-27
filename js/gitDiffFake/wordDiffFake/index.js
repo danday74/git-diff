@@ -1,8 +1,8 @@
 'use strict'
 
 var jsDiff = require('diff')
-var color = require('./color')
-var mostCommonLineEnding = require('./mostCommonLineEnding')
+var color = require('../color')
+var mostCommonLineEnding = require('../mostCommonLineEnding')
 
 function wordDiffFake(str1, str2, options) {
 
