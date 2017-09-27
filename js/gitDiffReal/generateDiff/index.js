@@ -18,7 +18,7 @@ function generateDiff(str1, str2, options, gitDir) {
     gitDir = ''
   }
 
-  var DEFAULTS = require('../_shared/defaultOptions')
+  var DEFAULTS = require('../../_shared/defaultOptions')
 
   var stringify1 = JSON.stringify(str1).replace(/^"/, '').replace(/"$/, '')
   var stringify2 = JSON.stringify(str2).replace(/^"/, '').replace(/"$/, '')

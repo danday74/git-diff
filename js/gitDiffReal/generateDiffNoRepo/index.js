@@ -1,7 +1,7 @@
 'use strict'
 
 var exec = require('shelljs.exec')
-var generateDiff = require('./generateDiff')
+var generateDiff = require('../generateDiff')
 
 function generateDiffNoRepo(str1, str2, options) {
 
