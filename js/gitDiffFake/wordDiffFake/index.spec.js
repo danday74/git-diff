@@ -48,7 +48,7 @@ describe('gitDiffFake - word difference', function() {
   })
 
   it('line endings', function() {
-    var expected, actual
+    var actual, expected
 
     expected = imp.data.endingsLinuxWordDiff
     actual = wordDiffFake('my first\nstring', 'my second\nstring', {color: false})
