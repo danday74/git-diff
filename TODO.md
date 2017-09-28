@@ -1,5 +1,3 @@
-* Test names
-
 * Tidy code
 
 * Update README
