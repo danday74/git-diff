@@ -8,7 +8,7 @@ function appendAllButLast(str, regex, append) {
   var reg = new RegExp(regex, 'g')
   return str.replace(reg, function(match, offset, str) {
     var follow = str.slice(offset)
-    var isLast = follow.match(reg).length == 1
+    var isLast = follow.match(reg).length === 1
     return (isLast) ? match : match + append
   })
 }

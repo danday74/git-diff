@@ -7,11 +7,11 @@ module.exports = Object.freeze({
   endingsWindowsLineDiff: '-my first\r\n+my second\r\n string\r\n',
   endingsLinuxWordDiff: 'my [-first-]{+second+}\nstring\n',
   endingsWindowsWordDiff: 'my [-first-]{+second+}\r\nstring\r\n',
-  lineDiffFakeVim: readFileGo(__dirname + '/lineDiffVim.txt', {
+  lineDiffFake: readFileGo(__dirname + '/lineDiffVim.txt', {
     throw: true,
     save: true
-  }).replace(/^@@.+@@(?:\r?\n|\r)/, ''),
-  lineDiffRealVim: readFileGo(__dirname + '/lineDiffVim.txt'),
+  }).replace(/^@@.+@@(?:\r?\n)/, ''),
+  lineDiffReal: readFileGo(__dirname + '/lineDiffVim.txt'),
   oneLinerLineDiffFake: '-my first string\n+my second string\n',
   oneLinerLineDiffReal: '@@ -1 +1 @@\n-my first string\n\\ No newline at end of file\n+my second string\n\\ No newline at end of file\n',
   oneLinerWordDiffFake: 'my [-first-]{+second+} string\n',
@@ -19,6 +19,6 @@ module.exports = Object.freeze({
   shortstatReal: readFileGo(__dirname + '/shortstatReal.txt'),
   str1: readFileGo(__dirname + '/str1.txt'),
   str2: readFileGo(__dirname + '/str2.txt'),
-  wordDiffFake: readFileGo(__dirname + '/wordDiffFake.txt').replace(/^@@.+@@(?:\r?\n|\r)/, ''),
+  wordDiffFake: readFileGo(__dirname + '/wordDiffFake.txt').replace(/^@@.+@@(?:\r?\n)/, ''),
   wordDiffReal: readFileGo(__dirname + '/wordDiffReal.txt')
 })

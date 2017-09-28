@@ -11,3 +11,7 @@ next:
 
 /js/gitDiffFake/lineDiffFake
 /js/gitDiffFake/wordDiffFake
+
+Notes for README:
+
+If no diff returns undefined

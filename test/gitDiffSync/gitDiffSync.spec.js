@@ -45,7 +45,7 @@ describe('gitDiffSync', function() {
 
       describe('line difference', function() {
 
-        var expected = imp.data.lineDiffFakeVim
+        var expected = imp.data.lineDiffFake
 
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
@@ -207,7 +207,7 @@ describe('gitDiffSync', function() {
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false})
           imp.expect(actual).to.equal(expected)
           imp.expect(actual).to.not.include(RED)
@@ -289,7 +289,7 @@ describe('gitDiffSync', function() {
 
         it('{testPrefix} not a string', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
@@ -298,7 +298,7 @@ describe('gitDiffSync', function() {
 
         it('{testPrefix} invalid', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
@@ -320,7 +320,7 @@ describe('gitDiffSync', function() {
         it('{testPrefix} invalid with invalid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--oops'
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
           imp.expect(actual).to.equal(expected)
           imp.expect(DEFAULTS.flags).to.equal(null)
@@ -353,7 +353,7 @@ describe('gitDiffSync', function() {
 
       var actual
 
-      var lineDiffFake = imp.data.lineDiffFakeVim
+      var lineDiffFake = imp.data.lineDiffFake
       var wordDiffFake = imp.data.wordDiffFake
 
       actual = gitDiffSync(str1, str2, {forceFake: true})

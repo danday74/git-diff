@@ -63,7 +63,7 @@ describe('gitDiffReal', function() {
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
           imp.expect(actual).to.equal(expected)
           imp.expect(actual).to.not.include(RED)
@@ -146,7 +146,7 @@ describe('gitDiffReal', function() {
         it('{testPrefix} invalid', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
@@ -168,7 +168,7 @@ describe('gitDiffReal', function() {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--oops'
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
-          var expected = imp.data.lineDiffRealVim
+          var expected = imp.data.lineDiffReal
           imp.expect(actual).to.equal(expected)
           imp.expect(DEFAULTS.flags).to.equal(null)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
