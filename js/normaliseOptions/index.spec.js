@@ -46,6 +46,11 @@ describe('normaliseOptions', function() {
     imp.expect(actual).to.eql(expected)
   })
 
+  it('flags is null', function() {
+    actual = normaliseOptions({flags: null})
+    imp.expect(actual).to.eql(expected)
+  })
+
   it('flags is not a string', function() {
     actual = normaliseOptions({flags: 9})
     imp.expect(actual).to.eql(expected)
