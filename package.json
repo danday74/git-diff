@@ -54,8 +54,8 @@
     "mocha": "^3.5.3",
     "npm-run-all": "^4.1.1",
     "readfile-go": "^1.0.3",
-    "sinon": "^3.3.0",
-    "sinon-chai": "^2.13.0"
+    "sinon": "^4.0.0",
+    "sinon-chai": "^2.14.0"
   },
   "engines": {
     "node": ">= 4"
