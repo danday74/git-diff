@@ -9,12 +9,7 @@
 * Tidy code - DONE:
 
 /js/_shared
-/js/gitDiffFake
-
-next:
-
-/js/gitDiffFake/lineDiffFake
-/js/gitDiffFake/wordDiffFake
+/js/gitDiffFake/ALL but need to re-check index.spec.js
 
 Notes for README:
 
