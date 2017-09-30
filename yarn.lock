@@ -1551,9 +1551,9 @@ shell-quote@^1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-shelljs.exec@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.4.tgz#3d2c8af1e5eb7a61c9ad162c80c7ebee77dd89b3"
+shelljs.exec@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.5.tgz#b12f15086a080f860d6b32798715112711071c56"
 
 shelljs@^0.7.8:
   version "0.7.8"
