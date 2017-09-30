@@ -2,8 +2,6 @@
 
 * Update examples spec file
 
-* Upgrade coveralls?
-
 * Somehow let user know if real or fake
 
 * Tidy code - DONE:
