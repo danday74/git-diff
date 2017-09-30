@@ -4,6 +4,12 @@
 
 * Somehow let user know if real or fake
 
+* no headers option?
+
+* Silent option - no need ATM if flags are valid!
+
+* Delete deleteme.js
+
 * Tidy code - DONE:
 
 /js/_shared
