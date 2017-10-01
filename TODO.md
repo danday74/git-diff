@@ -8,8 +8,7 @@
 
 Tidy code progress:
 
-/js/_shared
-/js/gitDiffFake/ALL but need to re-check index.spec.js
+none
 
 
 
