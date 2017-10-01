@@ -19,6 +19,7 @@ function generateDiffNoRepo(str1, str2, options) {
       return generateDiff(str1, str2, options, tempDir + '/.git')
     }
   }
+
   /* istanbul ignore next */
   return undefined
 }
