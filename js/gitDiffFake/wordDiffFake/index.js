@@ -30,9 +30,9 @@ function wordDiffFake(str1, str2, options) {
         culla = 'red'
         part.value = '[-' + part.value + '-]'
       } else {
-        culla = 'reset'
+        culla = null
       }
-      if (options.color) part.value = color.add(part.value, culla)
+      if (options.color && culla) part.value = color.add(part.value, culla)
       accumulatedDiff += part.value
     })
     return accumulatedDiff

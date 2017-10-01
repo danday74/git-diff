@@ -3,6 +3,7 @@
 var exec = require('shelljs.exec')
 var logger = require('loglevel')
 var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
+var ATAT_REGEX = /^.*@@.+@@.*$/m
 
 logger.setLevel('info')
 
@@ -85,7 +86,15 @@ function generateDiff(str1, str2, options, gitDir) {
 
         var trueDiff = trueDiffObj.stdout
 
-        trueDiff = trueDiff.substring(trueDiff.indexOf('@@'))
+        var atat = ATAT_REGEX.exec(trueDiff)
+
+        if (atat) {
+          trueDiff = trueDiff.substring(atat.index)
+          if (options.noHeaders) {
+            trueDiff = trueDiff.replace(ATAT_REGEX, '')
+            trueDiff = trueDiff.replace(CR, '')
+          }
+        }
 
         return (trueDiff !== '') ? trueDiff : undefined
       }

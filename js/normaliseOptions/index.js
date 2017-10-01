@@ -30,6 +30,10 @@ function normaliseOptions(options) {
       options.forceFake = toBoolean(options.forceFake)
     }
 
+    if (typeof options.noHeaders !== 'undefined') {
+      options.noHeaders = toBoolean(options.noHeaders)
+    }
+
     if (typeof options.save !== 'undefined') {
       options.save = toBoolean(options.save)
     }
@@ -49,6 +53,7 @@ function normaliseOptions(options) {
     DEFAULTS.color = options.color
     DEFAULTS.flags = options.flags
     DEFAULTS.forceFake = options.forceFake
+    DEFAULTS.noHeaders = options.noHeaders
     DEFAULTS.wordDiff = options.wordDiff
   }
 

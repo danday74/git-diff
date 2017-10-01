@@ -33,7 +33,6 @@ describe('gitDiffAsync', function() {
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
           done()
         })
       })

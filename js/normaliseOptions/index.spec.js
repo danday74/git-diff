@@ -67,6 +67,17 @@ describe('normaliseOptions', function() {
     imp.expect(actual).to.eql(expected)
   })
 
+  it('noHeaders is a boolean', function() {
+    actual = normaliseOptions({noHeaders: false})
+    imp.expect(actual).to.eql(expected)
+  })
+
+  it('noHeaders is not a boolean', function() {
+    expected.noHeaders = true
+    actual = normaliseOptions({noHeaders: 9})
+    imp.expect(actual).to.eql(expected)
+  })
+
   it('save', function() {
     var SAVE = true
     var WORD_DIFF = true

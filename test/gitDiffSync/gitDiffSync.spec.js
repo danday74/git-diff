@@ -53,7 +53,6 @@ describe('gitDiffSync', function() {
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
         })
 
         it('{testPrefix} no color', function(testObj) {
@@ -107,7 +106,6 @@ describe('gitDiffSync', function() {
           imp.expect(actual).to.equal(expected)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
-          imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'reset')
         })
 
         it('{testPrefix} no color', function(testObj) {
@@ -327,6 +325,29 @@ describe('gitDiffSync', function() {
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
           imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
+        })
+      })
+
+      describe('no headers', function() {
+
+        before(function(testObj) {
+          if (!testObj.stub) {
+            if (!imp.keepIt.real()) this.skip()
+          } else {
+            if (!imp.keepIt.realNoRepo()) this.skip()
+          }
+        })
+
+        it('{testPrefix} no headers', function(testObj) {
+          if (testObj.stub) stub()
+          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: true})
+          imp.expect(actual).to.not.startWith('@@')
+        })
+
+        it('{testPrefix} headers', function(testObj) {
+          if (testObj.stub) stub()
+          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: false})
+          imp.expect(actual).to.startWith('@@')
         })
       })
     })

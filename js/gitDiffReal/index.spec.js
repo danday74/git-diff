@@ -176,6 +176,29 @@ describe('gitDiffReal', function() {
           imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
         })
       })
+
+      describe('no headers', function() {
+
+        before(function(testObj) {
+          if (!testObj.stub) {
+            if (!imp.keepIt.real()) this.skip()
+          } else {
+            if (!imp.keepIt.realNoRepo()) this.skip()
+          }
+        })
+
+        it('{testPrefix} no headers', function(testObj) {
+          if (testObj.stub) stub()
+          var actual = gitDiffReal(str1, str2, {color: false, noHeaders: true})
+          imp.expect(actual).to.not.startWith('@@')
+        })
+
+        it('{testPrefix} headers', function(testObj) {
+          if (testObj.stub) stub()
+          var actual = gitDiffReal(str1, str2, {color: false, noHeaders: false})
+          imp.expect(actual).to.startWith('@@')
+        })
+      })
     })
   })
 

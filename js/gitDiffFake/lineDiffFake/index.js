@@ -39,12 +39,12 @@ function lineDiffFake(str1, str2, options) {
         culla = 'red'
         prefix = '-'
       } else {
-        culla = 'reset'
+        culla = null
         prefix = ' '
       }
       part.value = appendAllButLast(part.value, CRS, prefix)
       part.diff = prefix + part.value
-      if (options.color) part.diff = color.add(part.diff, culla)
+      if (options.color && culla) part.diff = color.add(part.diff, culla)
       accumulatedDiff += part.diff
     })
     return accumulatedDiff

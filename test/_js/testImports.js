@@ -3,9 +3,11 @@
 // expect sinon
 
 var chai = require('chai')
+var chaiString = require('chai-string')
 var sinon = require('sinon')
 var sinonChai = require('sinon-chai')
 var expect = chai.expect
+chai.use(chaiString)
 chai.use(sinonChai)
 
 // others
