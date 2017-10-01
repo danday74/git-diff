@@ -25,6 +25,7 @@ function isPrintf() {
 function KeepIt() {
 
   this.git = this.git || isGit()
+  this.mktemp = this.mktemp || isMkTemp()
   this.printf = this.printf || isPrintf()
 
   this.real = function() {
@@ -32,7 +33,7 @@ function KeepIt() {
   }
 
   this.realNoRepo = function() {
-    return this.printf && this.git && isMkTemp()
+    return this.printf && this.git && this.mktemp
   }
 }
 
