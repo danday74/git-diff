@@ -56,8 +56,14 @@ describe('gitDiffFake', function() {
     })
 
     it('{testPrefix} no difference', function(testObj) {
-      var actual = gitDiffFake('', '', {color: true, wordDiff: testObj.wordDiff})
+      var actual
+
+      actual = gitDiffFake('', '', {color: true, wordDiff: testObj.wordDiff})
       imp.expect(actual).to.be.undefined
+
+      actual = gitDiffFake('fred', 'fred', {color: true, wordDiff: testObj.wordDiff})
+      imp.expect(actual).to.be.undefined
+
       imp.expect(imp.color.add).to.have.not.been.called
     })
 
