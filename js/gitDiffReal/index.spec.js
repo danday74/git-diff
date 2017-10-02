@@ -156,6 +156,7 @@ describe('gitDiffReal', function() {
           imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to ' + config.gitDiffOptionsUrl)
+          imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
         })
 
         it('{testPrefix} invalid with valid default', function(testObj) {
