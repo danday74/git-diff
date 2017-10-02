@@ -1,10 +1,11 @@
 'use strict'
 
-var imp = require('../../test/_js/testImports')
 var gitDiffReal = require('./index')
+var imp = require('../../test/_js/testImports')
 
 var GREEN = '\u001b[32m'
 var RED = '\u001b[31m'
+
 var str1 = imp.data.str1
 var str2 = imp.data.str2
 
@@ -57,29 +58,32 @@ describe('gitDiffReal', function() {
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffReal(str1, str2, {color: true, wordDiff: false})
-          imp.expect(actual).to.include(RED)
           imp.expect(actual).to.include(GREEN)
+          imp.expect(actual).to.include(RED)
         })
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffReal
           var actual = gitDiffReal(str1, str2, {color: false, wordDiff: false})
-          imp.expect(actual).to.equal(expected)
-          imp.expect(actual).to.not.include(RED)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(actual).to.not.include(GREEN)
+          imp.expect(actual).to.not.include(RED)
         })
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.oneLinerLineDiffReal
           var actual = gitDiffReal('my first string', 'my second string', {color: false, wordDiff: false})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.oneLinerLineDiffReal)
         })
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffReal('', '', {wordDiff: false})
+          var actual
+
+          actual = gitDiffReal('', '', {color: true, wordDiff: false})
+          imp.expect(actual).to.be.undefined
+
+          actual = gitDiffReal('fred', 'fred', {color: true, wordDiff: false})
           imp.expect(actual).to.be.undefined
         })
       })
