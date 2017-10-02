@@ -1,5 +1,6 @@
 'use strict'
 
+var config = require('../../config')
 var gitDiffReal = require('./index')
 var imp = require('../../test/_js/testImports')
 
@@ -143,9 +144,8 @@ describe('gitDiffReal', function() {
 
         it('{testPrefix} valid', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.shortstatReal
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--shortstat'})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
           imp.expect(imp.loglevel.info).to.have.not.been.called
         })
@@ -153,21 +153,19 @@ describe('gitDiffReal', function() {
         it('{testPrefix} invalid', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
-          var expected = imp.data.lineDiffReal
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to ' + config.gitDiffOptionsUrl)
         })
 
         it('{testPrefix} invalid with valid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--shortstat'
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
-          var expected = imp.data.shortstatReal
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(DEFAULTS.flags).to.equal('--shortstat')
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to ' + config.gitDiffOptionsUrl)
           imp.expect(imp.loglevel.info).to.have.been.calledWith('Using default git diff options: --shortstat')
         })
 
@@ -175,11 +173,10 @@ describe('gitDiffReal', function() {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--oops'
           var actual = gitDiffReal(str1, str2, {color: false, flags: '--oops'})
-          var expected = imp.data.lineDiffReal
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(DEFAULTS.flags).to.equal(null)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
-          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to ' + config.gitDiffOptionsUrl)
           imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
         })
       })
