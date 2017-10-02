@@ -2,9 +2,9 @@
 
 require('./test/server.bootstrap')
 
-var normaliseOptions = require('./js/normaliseOptions')
 var gitDiffFake = require('./js/gitDiffFake')
 var gitDiffReal = require('./js/gitDiffReal')
+var normaliseOptions = require('./js/normaliseOptions')
 var validate = require('./js/validate')
 
 var gitDiffSync = function(str1, str2, options) {
