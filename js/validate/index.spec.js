@@ -18,13 +18,13 @@ describe('validate', function() {
     it('str1 not a string', function() {
       imp.expect(function() {
         validate(9, '')
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+      }).to.throw(TypeError, pkg.name + ' requires two strings')
     })
 
     it('str2 not a string', function() {
       imp.expect(function() {
-        validate('', {})
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+        validate('')
+      }).to.throw(TypeError, pkg.name + ' requires two strings')
     })
   })
 })

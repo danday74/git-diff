@@ -45,7 +45,7 @@ describe('gitDiffAsync', function() {
 
       gitDiffAsync(9, '').catch(function(err) {
         imp.expect(err).to.be.an.instanceof(TypeError)
-        imp.expect(err.message).to.equal('Both inputs to ' + pkg.name + ' must be strings')
+        imp.expect(err.message).to.equal(pkg.name + ' requires two strings')
         done()
       })
     })

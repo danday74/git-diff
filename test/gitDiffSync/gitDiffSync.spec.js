@@ -358,13 +358,13 @@ describe('gitDiffSync', function() {
     it('str1 not a string', function() {
       imp.expect(function() {
         gitDiffSync(9, '')
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+      }).to.throw(TypeError, pkg.name + ' requires two strings')
     })
 
     it('str2 not a string', function() {
       imp.expect(function() {
-        gitDiffSync('', {})
-      }).to.throw(TypeError, 'Both inputs to ' + pkg.name + ' must be strings')
+        gitDiffSync('')
+      }).to.throw(TypeError, pkg.name + ' requires two strings')
     })
   })
 
