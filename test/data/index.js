@@ -10,7 +10,7 @@ module.exports = Object.freeze({
   lineDiffFake: readFileGo(__dirname + '/lineDiffVim.txt', {
     throw: true,
     save: true
-  }).replace(/^@@.+@@(?:\r?\n)/, ''),
+  }).replace(ATAT_REGEX, '').replace(CR, ''),
   lineDiffReal: readFileGo(__dirname + '/lineDiffVim.txt'),
   oneLinerLineDiffFake: '-my first string\n+my second string\n',
   oneLinerLineDiffReal: '@@ -1 +1 @@\n-my first string\n\\ No newline at end of file\n+my second string\n\\ No newline at end of file\n',
@@ -19,6 +19,6 @@ module.exports = Object.freeze({
   shortstatReal: readFileGo(__dirname + '/shortstatReal.txt'),
   str1: readFileGo(__dirname + '/str1.txt'),
   str2: readFileGo(__dirname + '/str2.txt'),
-  wordDiffFake: readFileGo(__dirname + '/wordDiffFake.txt').replace(/^@@.+@@(?:\r?\n)/, ''),
+  wordDiffFake: readFileGo(__dirname + '/wordDiffFake.txt').replace(ATAT_REGEX, '').replace(CR, ''),
   wordDiffReal: readFileGo(__dirname + '/wordDiffReal.txt')
 })

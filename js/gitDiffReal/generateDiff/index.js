@@ -4,7 +4,6 @@ var exec = require('shelljs.exec')
 var logger = require('loglevel')
 var config = require('../../../config')
 
-var ATAT_REGEX = /^.*@@.+@@.*$/m
 var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
 
 logger.setLevel('info')

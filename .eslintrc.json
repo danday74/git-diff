@@ -33,9 +33,10 @@
     ]
   },
   "globals": {
-    "Promise": false,
+    "ATAT_REGEX": false,
     "CR": false,
     "CRE": false,
-    "CRS": false
+    "CRS": false,
+    "Promise": false
   }
 }
