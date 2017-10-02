@@ -2,8 +2,10 @@
 
 var exec = require('shelljs.exec')
 var logger = require('loglevel')
-var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
+var config = require('../../../config')
+
 var ATAT_REGEX = /^.*@@.+@@.*$/m
+var SHA_REGEX = /^[0-9a-fA-F]{5,}$/
 
 logger.setLevel('info')
 
@@ -13,13 +15,13 @@ logger.setLevel('info')
 
 function generateDiff(str1, str2, options, gitDir) {
 
+  var DEFAULTS = require('../../_shared/defaultOptions')
+
   if (typeof gitDir === 'string') {
     gitDir = '--git-dir ' + gitDir
   } else {
     gitDir = ''
   }
-
-  var DEFAULTS = require('../../_shared/defaultOptions')
 
   var stringify1 = JSON.stringify(str1).replace(/^"/, '').replace(/"$/, '')
   var stringify2 = JSON.stringify(str2).replace(/^"/, '').replace(/"$/, '')
@@ -43,7 +45,7 @@ function generateDiff(str1, str2, options, gitDir) {
     /* istanbul ignore else */
     if (sha1Test && sha2Test) {
 
-      var trueDiffObj, repeat
+      var diffObj, repeat
 
       do {
 
@@ -63,11 +65,11 @@ function generateDiff(str1, str2, options, gitDir) {
 
         var newCommand = 'git ' + gitDir + ' diff ' + sha1 + ' ' + sha2 + flags
 
-        trueDiffObj = exec(newCommand, {silent: true})
+        diffObj = exec(newCommand, {silent: true})
 
-        if (trueDiffObj.code === 129 && trueDiffObj.stderr.indexOf('usage') > -1) {
+        if (diffObj.code === 129 && diffObj.stderr.indexOf('usage') > -1) {
           logger.warn('Ignoring invalid git diff options: ' + options.flags)
-          logger.info('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          logger.info('For valid git diff options refer to ' + config.gitDiffOptionsUrl)
           if (options.flags === DEFAULTS.flags) {
             DEFAULTS.flags = null
           }
@@ -82,24 +84,24 @@ function generateDiff(str1, str2, options, gitDir) {
       } while (repeat)
 
       /* istanbul ignore else */
-      if (trueDiffObj.code === 0) {
+      if (diffObj.code === 0) {
 
-        var trueDiff = trueDiffObj.stdout
-
-        var atat = ATAT_REGEX.exec(trueDiff)
+        var diff = diffObj.stdout
+        var atat = ATAT_REGEX.exec(diff)
 
         if (atat) {
-          trueDiff = trueDiff.substring(atat.index)
+          diff = diff.substring(atat.index)
           if (options.noHeaders) {
-            trueDiff = trueDiff.replace(ATAT_REGEX, '')
-            trueDiff = trueDiff.replace(CR, '')
+            diff = diff.replace(ATAT_REGEX, '')
+            diff = diff.replace(CR, '')
           }
         }
 
-        return (trueDiff !== '') ? trueDiff : undefined
+        return (diff !== '') ? diff : undefined
       }
     }
   }
+
   /* istanbul ignore next */
   return undefined
 }
