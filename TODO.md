@@ -8,7 +8,6 @@
 
 Tidy code progress / things left:
 
-txt files in data folder
 gitDiffAsync
 gitDiffSync
 
