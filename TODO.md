@@ -9,6 +9,7 @@
 Tidy code progress:
 
 Finished js folder
+Up to and including async.js
 
 
 
