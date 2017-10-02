@@ -1,7 +1,6 @@
 'use strict'
 
 // expect sinon
-
 var chai = require('chai')
 var chaiString = require('chai-string')
 var sinon = require('sinon')
