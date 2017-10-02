@@ -8,7 +8,7 @@
 
 Tidy code progress:
 
-none
+Finished js folder
 
 
 
