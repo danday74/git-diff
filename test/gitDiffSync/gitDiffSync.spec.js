@@ -338,16 +338,16 @@ describe('gitDiffSync', function() {
           }
         })
 
-        it('{testPrefix} no headers', function(testObj) {
-          if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: true})
-          imp.expect(actual).to.not.startWith('@@')
-        })
-
         it('{testPrefix} headers', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffSync(str1, str2, {color: false, noHeaders: false})
           imp.expect(actual).to.startWith('@@')
+        })
+
+        it('{testPrefix} no headers', function(testObj) {
+          if (testObj.stub) stub()
+          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: true})
+          imp.expect(actual).to.not.startWith('@@')
         })
       })
     })
