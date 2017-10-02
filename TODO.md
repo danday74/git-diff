@@ -6,10 +6,11 @@
 
 
 
-Tidy code progress:
+Tidy code progress / things left:
 
-Finished js folder
-Up to and including async.js
+txt files in data folder
+gitDiffAsync
+gitDiffSync
 
 
 
