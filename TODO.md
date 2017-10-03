@@ -1,8 +1,10 @@
 * Tidy code - see below for progress
 
-* Update README
+* Test names and structure
 
-* Update examples spec file
+* Update README / examples spec file
+
+* Packages up to date?
 
 
 
