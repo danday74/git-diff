@@ -58,29 +58,32 @@ describe('gitDiffSync real', function() {
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffSync(str1, str2, 'not an object')
-          imp.expect(actual).to.include(RED)
           imp.expect(actual).to.include(GREEN)
+          imp.expect(actual).to.include(RED)
         })
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false})
-          imp.expect(actual).to.equal(expected)
-          imp.expect(actual).to.not.include(RED)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(actual).to.not.include(GREEN)
+          imp.expect(actual).to.not.include(RED)
         })
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.oneLinerLineDiffReal
           var actual = gitDiffSync('my first string', 'my second string', {color: false})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.oneLinerLineDiffReal)
         })
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('', '')
+          var actual
+
+          actual = gitDiffSync('', '')
+          imp.expect(actual).to.be.undefined
+
+          actual = gitDiffSync('fred', 'fred')
           imp.expect(actual).to.be.undefined
         })
       })
@@ -98,29 +101,32 @@ describe('gitDiffSync real', function() {
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffSync(str1, str2, {wordDiff: true})
-          imp.expect(actual).to.include(RED)
           imp.expect(actual).to.include(GREEN)
+          imp.expect(actual).to.include(RED)
         })
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.wordDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, wordDiff: true})
-          imp.expect(actual).to.equal(expected)
-          imp.expect(actual).to.not.include(RED)
+          imp.expect(actual).to.equal(imp.data.wordDiffReal)
           imp.expect(actual).to.not.include(GREEN)
+          imp.expect(actual).to.not.include(RED)
         })
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.oneLinerWordDiffReal
           var actual = gitDiffSync('my first string', 'my second string', {color: false, wordDiff: true})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.oneLinerWordDiffReal)
         })
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('', '', {wordDiff: true})
+          var actual
+
+          actual = gitDiffSync('', '', {wordDiff: true})
+          imp.expect(actual).to.be.undefined
+
+          actual = gitDiffSync('fred', 'fred', {wordDiff: true})
           imp.expect(actual).to.be.undefined
         })
       })
