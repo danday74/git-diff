@@ -63,7 +63,7 @@
     "eslint": "^4.8.0",
     "husky": "^0.14.3",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.0",
     "npm-run-all": "^4.1.1",
     "readfile-go": "^1.0.4",
     "sinon": "^4.0.0",
