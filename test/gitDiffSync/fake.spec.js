@@ -10,7 +10,7 @@ describe('gitDiffSync fake', function() {
 
   var sandbox
 
-  var fakeTestObjs = [{
+  var testObjs = [{
     testPrefix: 'unavailable -',
     stub: true,
     options: {}
@@ -20,7 +20,7 @@ describe('gitDiffSync fake', function() {
     options: {forceFake: true}
   }]
 
-  imp.using(fakeTestObjs, function() {
+  imp.using(testObjs, function() {
 
     function stub() {
       sandbox.stub(imp.keepIt, 'real').returns(false)
