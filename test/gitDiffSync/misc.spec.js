@@ -42,7 +42,6 @@ describe('gitDiffSync misc', function() {
 
       actual = gitDiffSync(str1, str2, {forceFake: true})
       imp.expect(actual).to.equal(lineDiffFake)
-
       imp.expect(DEFAULTS.forceFake).to.be.false
       imp.expect(DEFAULTS.save).to.be.false
       imp.expect(DEFAULTS.wordDiff).to.be.false
