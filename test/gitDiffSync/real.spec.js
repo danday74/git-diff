@@ -143,37 +143,34 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} valid', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.shortstatReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--shortstat'})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
           imp.expect(imp.loglevel.info).to.have.not.been.called
         })
 
         it('{testPrefix} not a string', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
           imp.expect(imp.loglevel.info).to.have.not.been.called
         })
 
         it('{testPrefix} invalid', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
+          imp.expect(imp.loglevel.info).to.have.not.been.calledWithMatch(/Using default git diff options/)
         })
 
         it('{testPrefix} invalid with valid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--shortstat'
-          var expected = imp.data.shortstatReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(DEFAULTS.flags).to.equal('--shortstat')
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
@@ -183,13 +180,12 @@ describe('gitDiffSync real', function() {
         it('{testPrefix} invalid with invalid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--oops'
-          var expected = imp.data.lineDiffReal
           var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(DEFAULTS.flags).to.equal(null)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
-          imp.expect(imp.loglevel.info).to.not.have.been.calledWithMatch(/Using default git diff options/)
+          imp.expect(imp.loglevel.info).to.have.not.been.calledWithMatch(/Using default git diff options/)
         })
       })
 
@@ -205,7 +201,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} headers', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: false})
+          var actual = gitDiffSync(str1, str2, {color: false})
           imp.expect(actual).to.startWith('@@')
         })
 
