@@ -1,16 +1,8 @@
-* Tidy code - see below for progress
-
 * Test names and structure
 
 * Update README / examples spec file
 
 * Packages up to date?
-
-
-
-Tidy code progress / things left:
-
-gitDiffAsync
 
 
 
