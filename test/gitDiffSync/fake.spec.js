@@ -30,8 +30,6 @@ describe('gitDiffSync fake', function() {
     describe('real is unavailable', function() {
 
       beforeEach(function() {
-        delete require.cache[require.resolve('../../js/_shared/defaultOptions')]
-        require('../../js/_shared/defaultOptions')
         sandbox = imp.sinon.sandbox.create()
         sandbox.spy(imp.color, 'add')
       })
@@ -42,12 +40,10 @@ describe('gitDiffSync fake', function() {
 
       describe('line difference', function() {
 
-        var expected = imp.data.lineDiffFake
-
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffSync(str1, str2, testObj.options)
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffFake)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
         })
@@ -55,41 +51,38 @@ describe('gitDiffSync fake', function() {
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
           var actual = gitDiffSync(str1, str2, Object.assign({color: false}, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffFake)
           imp.expect(imp.color.add).to.have.not.been.called
         })
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var expected = imp.data.oneLinerLineDiffFake
           var actual = gitDiffSync('my first string', 'my second string', Object.assign({color: false}, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.oneLinerLineDiffFake)
         })
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('', '', testObj.options)
+          var actual
+
+          actual = gitDiffSync('', '', testObj.options)
           imp.expect(actual).to.be.undefined
+
+          actual = gitDiffSync('fred', 'fred', testObj.options)
+          imp.expect(actual).to.be.undefined
+
           imp.expect(imp.color.add).to.have.not.been.called
         })
 
         it('{testPrefix} line endings', function(testObj) {
           if (testObj.stub) stub()
-          var expected, actual
+          var actual
 
-          expected = imp.data.endingsLinuxLineDiff
-          actual = gitDiffSync('my first\nstring', 'my second\nstring', Object.assign({
-            color: false,
-            wordDiff: false
-          }, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          actual = gitDiffSync('my first\nstring', 'my second\nstring', Object.assign({color: false}, testObj.options))
+          imp.expect(actual).to.equal(imp.data.endingsLinuxLineDiff)
 
-          expected = imp.data.endingsWindowsLineDiff
-          actual = gitDiffSync('my first\r\nstring', 'my second\r\nstring', Object.assign({
-            color: false,
-            wordDiff: false
-          }, testObj.options))
-          imp.expect(actual).to.equal(expected)
+          actual = gitDiffSync('my first\r\nstring', 'my second\r\nstring', Object.assign({color: false}, testObj.options))
+          imp.expect(actual).to.equal(imp.data.endingsWindowsLineDiff)
         })
       })
 
