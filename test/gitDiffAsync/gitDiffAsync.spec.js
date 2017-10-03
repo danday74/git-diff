@@ -1,7 +1,7 @@
 'use strict'
 
-var imp = require('../_js/testImports')
 var gitDiffAsync = require('../../async')
+var imp = require('../_js/testImports')
 var pkg = require('../../package.json')
 
 var str1 = imp.data.str1
@@ -27,10 +27,8 @@ describe('gitDiffAsync', function() {
     describe('line difference', function() {
 
       it('force fake - color', function(done) {
-
-        var expected = imp.data.lineDiffFake
         gitDiffAsync(str1, str2, {forceFake: true}).then(function(actual) {
-          imp.expect(actual).to.equal(expected)
+          imp.expect(actual).to.equal(imp.data.lineDiffFake)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
           done()
@@ -42,7 +40,6 @@ describe('gitDiffAsync', function() {
   describe('validate', function() {
 
     it('str1 not a string', function(done) {
-
       gitDiffAsync(9, '').catch(function(err) {
         imp.expect(err).to.be.an.instanceof(TypeError)
         imp.expect(err.message).to.equal(pkg.name + ' requires two strings')
