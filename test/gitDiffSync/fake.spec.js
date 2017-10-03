@@ -63,14 +63,8 @@ describe('gitDiffSync fake', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffSync('', '', testObj.options)
+          var actual = gitDiffSync('', '', testObj.options)
           imp.expect(actual).to.be.undefined
-
-          actual = gitDiffSync('fred', 'fred', testObj.options)
-          imp.expect(actual).to.be.undefined
-
           imp.expect(imp.color.add).to.have.not.been.called
         })
 
@@ -114,14 +108,8 @@ describe('gitDiffSync fake', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffSync('', '', Object.assign({wordDiff: true}, testObj.options))
+          var actual = gitDiffSync('', '', Object.assign({wordDiff: true}, testObj.options))
           imp.expect(actual).to.be.undefined
-
-          actual = gitDiffSync('fred', 'fred', Object.assign({wordDiff: true}, testObj.options))
-          imp.expect(actual).to.be.undefined
-
           imp.expect(imp.color.add).to.have.not.been.called
         })
 

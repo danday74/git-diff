@@ -79,12 +79,7 @@ describe('gitDiffReal', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffReal('', '', {color: true, wordDiff: false})
-          imp.expect(actual).to.be.undefined
-
-          actual = gitDiffReal('fred', 'fred', {color: true, wordDiff: false})
+          var actual = gitDiffReal('', '', {color: true, wordDiff: false})
           imp.expect(actual).to.be.undefined
         })
       })
@@ -122,12 +117,7 @@ describe('gitDiffReal', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffReal('', '', {color: true, wordDiff: true})
-          imp.expect(actual).to.be.undefined
-
-          actual = gitDiffReal('fred', 'fred', {color: true, wordDiff: true})
+          var actual = gitDiffReal('', '', {color: true, wordDiff: true})
           imp.expect(actual).to.be.undefined
         })
       })

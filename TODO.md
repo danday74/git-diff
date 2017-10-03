@@ -1,7 +1,3 @@
-* Test names and structure
-
-* Consider dropping fred
-
 * Update README / examples spec file
 
 * Packages up to date?

@@ -78,12 +78,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffSync('', '')
-          imp.expect(actual).to.be.undefined
-
-          actual = gitDiffSync('fred', 'fred')
+          var actual = gitDiffSync('', '')
           imp.expect(actual).to.be.undefined
         })
       })
@@ -121,12 +116,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} no difference', function(testObj) {
           if (testObj.stub) stub()
-          var actual
-
-          actual = gitDiffSync('', '', {wordDiff: true})
-          imp.expect(actual).to.be.undefined
-
-          actual = gitDiffSync('fred', 'fred', {wordDiff: true})
+          var actual = gitDiffSync('', '', {wordDiff: true})
           imp.expect(actual).to.be.undefined
         })
       })
