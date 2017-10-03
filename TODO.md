@@ -9,7 +9,6 @@
 Tidy code progress / things left:
 
 gitDiffAsync
-gitDiffSync
 
 
 
