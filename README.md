@@ -32,7 +32,7 @@ git-diff takes 3 arguments, the **old string** to diff, the **new string** to di
 
 git-diff returns the git diff or `undefined` where there is no difference.
 
-An example to demonstrate usage:
+String diff example:
 
 ```javascript 1.5
 var gitDiff = require('git-diff')
@@ -40,6 +40,16 @@ var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
 var actual = gitDiff(oldStr, newStr, {color: false})
 expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+```
+
+File diff example:
+
+```javascript 1.5
+var gitDiff = require('git-diff')
+var readFileGo = require('readfile-go') // or your preferred file reader
+var oldStr = readFileGo(__dirname + '/oldStr.txt')
+var newStr = readFileGo(__dirname + '/newStr.txt')
+var actual = gitDiff(oldStr, newStr)
 ```
 
 
