@@ -66,7 +66,7 @@
     "mocha": "^4.0.0",
     "npm-run-all": "^4.1.1",
     "readfile-go": "^1.0.4",
-    "sinon": "^4.0.0",
+    "sinon": "^4.0.1",
     "sinon-chai": "^2.14.0"
   },
   "engines": {
