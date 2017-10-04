@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = Object.seal({
-  color: true, // fake real
+  color: false, // fake real
   flags: null, // real
   forceFake: false, // git-diff
   noHeaders: false, // real

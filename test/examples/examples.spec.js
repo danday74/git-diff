@@ -25,7 +25,7 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var actual = gitDiff(oldStr, newStr, {color: false})
+    var actual = gitDiff(oldStr, newStr)
     imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 
     imp.expect(imp.color.add).to.have.not.been.called
@@ -35,7 +35,7 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\n   is   \nfunny\n'
     var newStr = 'paul\nis\n   funny   \n'
-    var actual = gitDiff(oldStr, newStr, {color: false, flags: '--diff-algorithm=minimal --ignore-all-space'})
+    var actual = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
     imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 
     imp.expect(imp.color.add).to.have.not.been.called
@@ -45,7 +45,7 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var actual = gitDiff(oldStr, newStr, {color: false, forceFake: true})
+    var actual = gitDiff(oldStr, newStr, {forceFake: true})
     imp.expect(actual).to.equal('-fred\n+paul\n is\n funny\n')
 
     imp.expect(imp.color.add).to.have.not.been.called
@@ -57,7 +57,7 @@ describe('examples', function() {
     var newStr = 'paul\nis\nfunny\n'
     var actual
 
-    actual = gitDiff(oldStr, newStr, {color: false, save: true, wordDiff: true})
+    actual = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
     imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
     actual = gitDiff(oldStr, newStr)
     imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
@@ -69,7 +69,7 @@ describe('examples', function() {
     var gitDiff = require('../../async')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    gitDiff(oldStr, newStr, {color: false}).then(function(actual) {
+    gitDiff(oldStr, newStr).then(function(actual) {
       imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
       imp.expect(imp.color.add).to.have.not.been.called
       done()
