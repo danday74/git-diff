@@ -76,4 +76,15 @@ describe('examples', function() {
       done()
     })
   })
+
+  it('files', function() {
+    var gitDiff = require('../../sync')
+    var readFileGo = require('readfile-go')
+    var oldStr = readFileGo(__dirname + '/oldStr.txt')
+    var newStr = readFileGo(__dirname + '/newStr.txt')
+    var actual = gitDiff(oldStr, newStr)
+
+    imp.expect(actual).to.equal(imp.data.lineDiffReal)
+    imp.expect(imp.color.add).to.have.not.been.called
+  })
 })
