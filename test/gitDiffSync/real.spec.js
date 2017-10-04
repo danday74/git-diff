@@ -57,14 +57,14 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, 'not an object')
+          var actual = gitDiffSync(str1, str2, {color: true})
           imp.expect(actual).to.include(GREEN)
           imp.expect(actual).to.include(RED)
         })
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false})
+          var actual = gitDiffSync(str1, str2, 'not an object')
           imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(actual).to.not.include(GREEN)
           imp.expect(actual).to.not.include(RED)
@@ -72,7 +72,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('my first string', 'my second string', {color: false})
+          var actual = gitDiffSync('my first string', 'my second string')
           imp.expect(actual).to.equal(imp.data.oneLinerLineDiffReal)
         })
 
@@ -95,14 +95,14 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} color', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {wordDiff: true})
+          var actual = gitDiffSync(str1, str2, {color: true, wordDiff: true})
           imp.expect(actual).to.include(GREEN)
           imp.expect(actual).to.include(RED)
         })
 
         it('{testPrefix} no color', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, wordDiff: true})
+          var actual = gitDiffSync(str1, str2, {wordDiff: true})
           imp.expect(actual).to.equal(imp.data.wordDiffReal)
           imp.expect(actual).to.not.include(GREEN)
           imp.expect(actual).to.not.include(RED)
@@ -110,7 +110,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} one liner', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync('my first string', 'my second string', {color: false, wordDiff: true})
+          var actual = gitDiffSync('my first string', 'my second string', {wordDiff: true})
           imp.expect(actual).to.equal(imp.data.oneLinerWordDiffReal)
         })
 
@@ -133,7 +133,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} valid', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, flags: '--shortstat'})
+          var actual = gitDiffSync(str1, str2, {flags: '--shortstat'})
           imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
           imp.expect(imp.loglevel.info).to.have.not.been.called
@@ -141,7 +141,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} not a string', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, flags: 9})
+          var actual = gitDiffSync(str1, str2, {flags: 9})
           imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.not.been.called
           imp.expect(imp.loglevel.info).to.have.not.been.called
@@ -149,7 +149,7 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} invalid', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+          var actual = gitDiffSync(str1, str2, {flags: '--oops'})
           imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
           imp.expect(imp.loglevel.info).to.have.been.calledWith('For valid git diff options refer to https://git-scm.com/docs/git-diff#_options')
@@ -159,7 +159,7 @@ describe('gitDiffSync real', function() {
         it('{testPrefix} invalid with valid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--shortstat'
-          var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+          var actual = gitDiffSync(str1, str2, {flags: '--oops'})
           imp.expect(actual).to.equal(imp.data.shortstatReal)
           imp.expect(DEFAULTS.flags).to.equal('--shortstat')
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
@@ -170,7 +170,7 @@ describe('gitDiffSync real', function() {
         it('{testPrefix} invalid with invalid default', function(testObj) {
           if (testObj.stub) stub()
           DEFAULTS.flags = '--oops'
-          var actual = gitDiffSync(str1, str2, {color: false, flags: '--oops'})
+          var actual = gitDiffSync(str1, str2, {flags: '--oops'})
           imp.expect(actual).to.equal(imp.data.lineDiffReal)
           imp.expect(DEFAULTS.flags).to.equal(null)
           imp.expect(imp.loglevel.warn).to.have.been.calledWith('Ignoring invalid git diff options: --oops')
@@ -191,13 +191,13 @@ describe('gitDiffSync real', function() {
 
         it('{testPrefix} headers', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false})
+          var actual = gitDiffSync(str1, str2)
           imp.expect(actual).to.startWith('@@')
         })
 
         it('{testPrefix} no headers', function(testObj) {
           if (testObj.stub) stub()
-          var actual = gitDiffSync(str1, str2, {color: false, noHeaders: true})
+          var actual = gitDiffSync(str1, str2, {noHeaders: true})
           imp.expect(actual).to.not.startWith('@@')
         })
       })
