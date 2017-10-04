@@ -27,7 +27,7 @@ describe('gitDiffAsync', function() {
     describe('line difference', function() {
 
       it('force fake - color', function(done) {
-        gitDiffAsync(str1, str2, {forceFake: true}).then(function(actual) {
+        gitDiffAsync(str1, str2, {color: true, forceFake: true}).then(function(actual) {
           imp.expect(actual).to.equal(imp.data.lineDiffFake)
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'green')
           imp.expect(imp.color.add).to.have.been.calledWith(imp.sinon.match.any, 'red')
