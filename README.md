@@ -18,7 +18,7 @@
 
 git-diff will use ```git``` (if installed) and ```printf``` (if available) to get the real git diff of two strings.
 
-If either is unavailable, git-diff instead returns a very good fake git diff.
+If either command is unavailable, git-diff instead returns a very good fake git diff.
 
 
 
@@ -36,8 +36,10 @@ An example to demonstrate usage:
 
 ```javascript 1.5
 var gitDiff = require('git-diff')
-var actual = gitDiff('fred\nis\nfunny\n', 'bob\nis\nfunny\n', {color: false})
-expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+bob\n is\n funny\n')
+var oldStr = 'fred\nis\nfunny\n'
+var newStr = 'paul\nis\nfunny\n'
+var actual = gitDiff(oldStr, newStr, {color: false})
+expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 ```
 
 
@@ -54,7 +56,7 @@ Default options are:
 
 ```javascript 1.5
 var options = {
-  color: true,       // Add color to the diff returned?
+  color: true,       // Add color to the git diff returned?
   flags: null,       // A space separated string of git diff flags from https://git-scm.com/docs/git-diff#_options
   forceFake: false,  // Do not try and get a real git diff, just get me a fake? Faster but may not be 100% accurate
   noHeaders: false,  // Remove the ugly @@ -1,3 +1,3 @@ header?
@@ -69,17 +71,128 @@ Where options are not self explanatory, further assistance is given below.
 
 <br>
 
-#### **color** (boolean) [![top](top.png)](#options-object)
+#### **flags** (string | null) [![top](top.png)](#options-object)
+
+The flags option allows you to use any [git diff flags](https://git-scm.com/docs/git-diff#_options)
+
+It only applies to real git diffs and will not effect the returned git diff if it is fake.
+
+An example to illustrate:
+
+```javascript 1.5
+var gitDiff = require('git-diff')
+var oldStr = 'fred\n   is   \nfunny\n'
+var newStr = 'paul\nis\n   funny   \n'
+var actual = gitDiff(oldStr, newStr, {color: false, flags: '--diff-algorithm=minimal --ignore-all-space'})
+expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
+```
 
 
 
+<br>
+
+#### **forceFake** (boolean) [![top](top.png)](#options-object)
+
+git-diff will first try to use ```git``` and ```printf``` to get the real git diff of two strings.
+
+If it cannot, it instead returns a very good fake git diff.
+
+A fake git diff is faster to obtain but may not be 100% representative of a real git diff.
+
+The [flags](TODO) option is unavailable when faking and fake diffs never have a header.
+
+However, if a fake is good enough and speed is of the essence then you may want to force a fake git diff.
+
+The forceFake option allows you to do exactly that:
+
+```javascript 1.5
+var gitDiff = require('git-diff')
+var oldStr = 'fred\nis\nfunny\n'
+var newStr = 'paul\nis\nfunny\n'
+var actual = gitDiff(oldStr, newStr, {color: false, forceFake: true})
+expect(actual).to.equal('-fred\n+paul\n is\n funny\n')
+```
 
 
 
+<br>
+
+#### **save** (boolean) [![top](top.png)](#options-object)
+
+Its annoying to keep passing the same options every time.
+
+git-diff, if instructed to do so, will remember previously used options for you.
+
+When the `{save: true}` option is used in a call to git-diff subsequent calls remember the options.
+
+```javascript 1.5
+var gitDiff = require('git-diff')
+var oldStr = 'fred\nis\nfunny\n'
+var newStr = 'paul\nis\nfunny\n'
+var actual
+
+actual = gitDiff(oldStr, newStr, {color: false, save: true, wordDiff: true})
+expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+actual = gitDiff(oldStr, newStr)
+expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+```
+
+Here, the second call remembers that the color option is off and wordDiff is on. `{color: false}` and `{wordDiff: true}` are now the defaults.
 
 
 
+<br>
 
+#### **wordDiff** (boolean) [![top](top.png)](#options-object)
+
+This option allows you to choose between a line diff `{wordDiff: false}` and a word diff `{wordDiff: true}`
+
+console.logging the returned git-diff for both a line diff and a word diff produces:
+
+![Line diff v Word diff](diffs.png "Line diff v Word diff")
+
+
+
+<br>
+
+## FAQs
+
+Q: What is a real git diff?
+
+A: A real git diff refers to the actual diff output produced by git itself
+
+Q: What is a fake git diff?
+
+A: A fake git diff is a programmatic attempt to reproduce / mimic the diff output produced by git
+
+Q: How can I tell if the returned git diff is real or fake?
+
+A: If the @@ -1,3 +1,3 @@ header is present then the returned git diff is real
+   If the header is absent then either the noHeaders option is on or the returned git diff is fake
+
+Q: Will my environment produce real or fake git diffs?
+
+A: Linux and mac have the ```printf``` command available. On Windows [git bash](https://git-for-windows.github.io) makes ```printf``` available.
+
+   Where git is installed then any of these environments will produce a real git diff.
+
+
+
+<br>
+
+## Asynchronous execution
+
+git-diff exposes a promise based asynchronous solution:
+
+```javascript 1.5
+    var gitDiff = require('git-diff')
+    var oldStr = 'fred\nis\nfunny\n'
+    var newStr = 'paul\nis\nfunny\n'
+    gitDiff(oldStr, newStr, {color: false}).then(function(actual) {
+      expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+      expect(imp.color.add).to.have.not.been.called
+    })
+```
 
 
 
