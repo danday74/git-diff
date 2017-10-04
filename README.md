@@ -185,12 +185,11 @@ A: Linux and mac have the ```printf``` command available. On Windows [git bash](
 git-diff exposes a promise based asynchronous solution:
 
 ```javascript 1.5
-    var gitDiff = require('git-diff')
+    var gitDiff = require('git-diff/async')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
     gitDiff(oldStr, newStr, {color: false}).then(function(actual) {
       expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
-      expect(imp.color.add).to.have.not.been.called
     })
 ```
 
