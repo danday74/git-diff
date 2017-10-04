@@ -21,13 +21,24 @@ describe('examples', function() {
     sandbox.restore()
   })
 
-  it('usage', function() {
+  it('usage - string diff', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var actual = gitDiff(oldStr, newStr)
-    imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+    var diff = gitDiff(oldStr, newStr)
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 
+    imp.expect(imp.color.add).to.have.not.been.called
+  })
+
+  it('usage - file diff', function() {
+    var gitDiff = require('../../sync')
+    var readFileGo = require('readfile-go') // or your preferred file reader
+    var oldStr = readFileGo(__dirname + '/oldStr.txt')
+    var newStr = readFileGo(__dirname + '/newStr.txt')
+    var diff = gitDiff(oldStr, newStr)
+
+    imp.expect(diff).to.equal(imp.data.lineDiffReal)
     imp.expect(imp.color.add).to.have.not.been.called
   })
 
@@ -35,8 +46,8 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\n   is   \nfunny\n'
     var newStr = 'paul\nis\n   funny   \n'
-    var actual = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
-    imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
+    var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 
     imp.expect(imp.color.add).to.have.not.been.called
   })
@@ -45,8 +56,8 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var actual = gitDiff(oldStr, newStr, {forceFake: true})
-    imp.expect(actual).to.equal('-fred\n+paul\n is\n funny\n')
+    var diff = gitDiff(oldStr, newStr, {forceFake: true})
+    imp.expect(diff).to.equal('-fred\n+paul\n is\n funny\n')
 
     imp.expect(imp.color.add).to.have.not.been.called
   })
@@ -55,12 +66,12 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var actual
+    var diff
 
-    actual = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
-    imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
-    actual = gitDiff(oldStr, newStr)
-    imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+    diff = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+    diff = gitDiff(oldStr, newStr)
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 
     imp.expect(imp.color.add).to.have.not.been.called
   })
@@ -69,22 +80,11 @@ describe('examples', function() {
     var gitDiff = require('../../async')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    gitDiff(oldStr, newStr).then(function(actual) {
-      imp.expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+    gitDiff(oldStr, newStr).then(function(diff) {
+      imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 
       imp.expect(imp.color.add).to.have.not.been.called
       done()
     })
-  })
-
-  it('files', function() {
-    var gitDiff = require('../../sync')
-    var readFileGo = require('readfile-go')
-    var oldStr = readFileGo(__dirname + '/oldStr.txt')
-    var newStr = readFileGo(__dirname + '/newStr.txt')
-    var actual = gitDiff(oldStr, newStr)
-
-    imp.expect(actual).to.equal(imp.data.lineDiffReal)
-    imp.expect(imp.color.add).to.have.not.been.called
   })
 })

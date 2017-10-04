@@ -38,7 +38,7 @@ String diff example:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var actual = gitDiff(oldStr, newStr, {color: false})
+var actual = gitDiff(oldStr, newStr)
 expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 ```
 
@@ -66,7 +66,7 @@ Default options are:
 
 ```javascript 1.5
 var options = {
-  color: true,       // Add color to the git diff returned?
+  color: false,      // Add color to the git diff returned?
   flags: null,       // A space separated string of git diff flags from https://git-scm.com/docs/git-diff#_options
   forceFake: false,  // Do not try and get a real git diff, just get me a fake? Faster but may not be 100% accurate
   noHeaders: false,  // Remove the ugly @@ -1,3 +1,3 @@ header?
@@ -93,7 +93,7 @@ An example to illustrate:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\n   is   \nfunny\n'
 var newStr = 'paul\nis\n   funny   \n'
-var actual = gitDiff(oldStr, newStr, {color: false, flags: '--diff-algorithm=minimal --ignore-all-space'})
+var actual = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
 expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 ```
 
@@ -119,7 +119,7 @@ The forceFake option allows you to do exactly that:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var actual = gitDiff(oldStr, newStr, {color: false, forceFake: true})
+var actual = gitDiff(oldStr, newStr, {forceFake: true})
 expect(actual).to.equal('-fred\n+paul\n is\n funny\n')
 ```
 
@@ -141,7 +141,7 @@ var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
 var actual
 
-actual = gitDiff(oldStr, newStr, {color: false, save: true, wordDiff: true})
+actual = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
 expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 actual = gitDiff(oldStr, newStr)
 expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
@@ -195,12 +195,12 @@ A: Linux and mac have the ```printf``` command available. On Windows [git bash](
 git-diff exposes a promise based asynchronous solution:
 
 ```javascript 1.5
-    var gitDiff = require('git-diff/async')
-    var oldStr = 'fred\nis\nfunny\n'
-    var newStr = 'paul\nis\nfunny\n'
-    gitDiff(oldStr, newStr, {color: false}).then(function(actual) {
-      expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
-    })
+var gitDiff = require('git-diff/async')
+var oldStr = 'fred\nis\nfunny\n'
+var newStr = 'paul\nis\nfunny\n'
+gitDiff(oldStr, newStr).then(function(actual) {
+  expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+})
 ```
 
 
