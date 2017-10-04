@@ -1,6 +1,6 @@
 {
   "name": "git-diff",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Returns the git diff of two strings",
   "author": "Daniel Lewis BSc (Hons)",
   "license": "ISC",
