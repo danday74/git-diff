@@ -30,12 +30,12 @@ describe('normaliseOptions', function() {
   })
 
   it('color is a boolean', function() {
+    expected.color = true
     actual = normaliseOptions({color: true})
     imp.expect(actual).to.eql(expected)
   })
 
   it('color is not a boolean', function() {
-    expected.color = false
     actual = normaliseOptions({color: 'false'})
     imp.expect(actual).to.eql(expected)
   })
