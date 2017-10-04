@@ -38,8 +38,8 @@ String diff example:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var actual = gitDiff(oldStr, newStr)
-expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+var diff = gitDiff(oldStr, newStr)
+expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 ```
 
 File diff example:
@@ -49,7 +49,7 @@ var gitDiff = require('git-diff')
 var readFileGo = require('readfile-go') // or your preferred file reader
 var oldStr = readFileGo(__dirname + '/oldStr.txt')
 var newStr = readFileGo(__dirname + '/newStr.txt')
-var actual = gitDiff(oldStr, newStr)
+var diff = gitDiff(oldStr, newStr)
 ```
 
 
@@ -93,8 +93,8 @@ An example to illustrate:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\n   is   \nfunny\n'
 var newStr = 'paul\nis\n   funny   \n'
-var actual = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
-expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
+var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
+expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 ```
 
 
@@ -119,8 +119,8 @@ The forceFake option allows you to do exactly that:
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var actual = gitDiff(oldStr, newStr, {forceFake: true})
-expect(actual).to.equal('-fred\n+paul\n is\n funny\n')
+var diff = gitDiff(oldStr, newStr, {forceFake: true})
+expect(diff).to.equal('-fred\n+paul\n is\n funny\n')
 ```
 
 
@@ -139,12 +139,12 @@ When the `{save: true}` option is used in a call to git-diff subsequent calls re
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var actual
+var diff
 
-actual = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
-expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
-actual = gitDiff(oldStr, newStr)
-expect(actual).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+diff = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
+expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+diff = gitDiff(oldStr, newStr)
+expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 ```
 
 Here, the second call remembers that the color option is off and wordDiff is on. `{color: false}` and `{wordDiff: true}` are now the defaults.
@@ -198,8 +198,8 @@ git-diff exposes a promise based asynchronous solution:
 var gitDiff = require('git-diff/async')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-gitDiff(oldStr, newStr).then(function(actual) {
-  expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+gitDiff(oldStr, newStr).then(function(diff) {
+  expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 })
 ```
 
