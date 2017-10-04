@@ -14,33 +14,72 @@
 
 <br>
 
+## Introduction
+
+git-diff will use ```git``` (if installed) and ```printf``` (if available) to get the real git diff of two strings.
+
+If either is unavailable, git-diff instead returns a very good fake git diff.
+
+
+
+<br>
+
 ## Usage
 
 `npm install --save git-diff`
 
-git-diff takes 3 arguments, the **first string to diff**, the **second string to diff** and optionally a **color flag (boolean)**
+git-diff takes 3 arguments, the **old string** to diff, the **new string** to diff and optionally an [options object](#options-object)
 
-git-diff returns a string containing the difference
+git-diff returns the git diff or `undefined` where there is no difference.
 
-The color flag (defaults to false) indicates whether you want the return value to be colorized with [chalk](https://www.npmjs.com/package/chalk)
-
-Examples to demonstrate usage follow.
-
-With color:
+An example to demonstrate usage:
 
 ```javascript 1.5
 var gitDiff = require('git-diff')
-var actual = gitDiff('a\nb\n', 'a\nc\n', {color: true})
-expect(actual).to.equal('a\n-b\n+c\n')
+var actual = gitDiff('fred\nis\nfunny\n', 'bob\nis\nfunny\n', {color: false})
+expect(actual).to.equal('@@ -1,3 +1,3 @@\n-fred\n+bob\n is\n funny\n')
 ```
 
-Without color:
+
+
+<br>
+
+## Options object
+
+Available options are:
+
+color | flags | forceFake | noHeaders | save | wordDiff
+
+Default options are:
 
 ```javascript 1.5
-var gitDiff = require('git-diff')
-var actual = gitDiff('a\nb\n', 'a\nc\n')
-expect(actual).to.equal('a\n-b\n+c\n')
+var options = {
+  color: true,       // Add color to the diff returned?
+  flags: null,       // A space separated string of git diff flags from https://git-scm.com/docs/git-diff#_options
+  forceFake: false,  // Do not try and get a real git diff, just get me a fake? Faster but may not be 100% accurate
+  noHeaders: false,  // Remove the ugly @@ -1,3 +1,3 @@ header?
+  save: false,       // Remember the options for next time?
+  wordDiff: false    // Get a word diff instead of a line diff?
+}
 ```
+
+Where options are not self explanatory, further assistance is given below.
+
+
+
+<br>
+
+#### **color** (boolean) [![top](top.png)](#options-object)
+
+
+
+
+
+
+
+
+
+
 
 
 
