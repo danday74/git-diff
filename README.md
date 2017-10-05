@@ -176,9 +176,9 @@ gitDiff(oldStr, newStr).then(function(diff) {
 
 ## FAQs
 
-> **Q**: How can I tell if the returned git diff is real or fake?
+> **Q**&nbsp; How can I tell if the returned git diff is real or fake?
 
-> **A**: If the @@ -1,3 +1,3 @@ header is present then the returned git diff is real<br>
+> **A**&nbsp; If the @@ -1,3 +1,3 @@ header is present then the returned git diff is real<br>
 >    If the header is absent then either the noHeaders option is on or the returned git diff is fake
 
 > **Q**: Will my environment produce a real or fake git diff?
