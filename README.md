@@ -20,7 +20,7 @@ git-diff will use ```git``` (if installed) and ```printf``` (if available) to ge
 
 As a fallback, if either command is unavailable, git-diff will instead use the [diff](https://www.npmjs.com/package/diff) module to produce a very good fake git diff.
 
-You may then console.log the returned diff. An example of actual output:
+If desired, you may then console.log the returned diff. An example of **actual output**:
 
 ![Line diff v Word diff](diffs.png "Line diff v Word diff")
 
