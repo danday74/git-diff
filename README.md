@@ -18,7 +18,7 @@
 
 git-diff will use ```git``` (if installed) and ```printf``` (if available) to get the real git diff of two strings, viz the actual diff output produced by git itself.
 
-As a fallback, if either command is unavailable, git-diff instead uses the [diff](https://www.npmjs.com/package/diff) module to produce a very good fake git diff.
+As a fallback, if either command is unavailable, git-diff will instead use the [diff](https://www.npmjs.com/package/diff) module to produce a very good fake git diff.
 
 console.log the returned git diff to get:
 
