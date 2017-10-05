@@ -53,7 +53,7 @@
     "diff": "^3.3.1",
     "loglevel": "^1.5.0",
     "shelljs": "^0.7.8",
-    "shelljs.exec": "^1.1.5"
+    "shelljs.exec": "^1.1.6"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -65,7 +65,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^4.0.0",
     "npm-run-all": "^4.1.1",
-    "readfile-go": "^1.0.4",
+    "readfile-go": "^1.0.5",
     "sinon": "^4.0.1",
     "sinon-chai": "^2.14.0"
   },

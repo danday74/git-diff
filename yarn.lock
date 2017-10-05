@@ -1356,9 +1356,9 @@ readable-stream@~1.0.2:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readfile-go@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/readfile-go/-/readfile-go-1.0.4.tgz#e4e61b4397c4a22ccdb78319955cf03add740354"
+readfile-go@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/readfile-go/-/readfile-go-1.0.5.tgz#8ab5ff38ceeac4c74bb63194a78df7017a7df241"
 
 rechoir@^0.6.2:
   version "0.6.2"
@@ -1486,9 +1486,9 @@ shell-quote@^1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-shelljs.exec@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.5.tgz#b12f15086a080f860d6b32798715112711071c56"
+shelljs.exec@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/shelljs.exec/-/shelljs.exec-1.1.6.tgz#0c46cf63f03e2c5c4e5f5757f34ed12f3e6e669a"
 
 shelljs@^0.7.8:
   version "0.7.8"
