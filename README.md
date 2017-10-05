@@ -153,7 +153,7 @@ diff = gitDiff(oldStr, newStr)
 expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 ```
 
-Here, the second call remembers that wordDiff is on. `{wordDiff: true}` is now the default.
+Here the second call remembers that wordDiff is on. `{wordDiff: true}` is now the default.
 
 
 
