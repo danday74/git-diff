@@ -101,6 +101,8 @@ var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-al
 expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 ```
 
+Here the use of ```--ignore-all-space``` prevents a difference being reported on the 2nd and 3rd lines.
+
 
 
 <br>
