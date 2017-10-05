@@ -101,7 +101,7 @@ var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-al
 expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 ```
 
-Here the use of ```--ignore-all-space``` prevents a difference being reported on the 2nd and 3rd lines.
+Here, the use of ```--ignore-all-space``` prevents a difference being reported on the 2nd and 3rd lines.
 
 
 
@@ -153,7 +153,7 @@ diff = gitDiff(oldStr, newStr)
 expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 ```
 
-Here the second call remembers that wordDiff is on. `{wordDiff: true}` is now the default.
+Here, the second call remembers that the wordDiff option is on. `{wordDiff: true}` is now the default.
 
 
 
