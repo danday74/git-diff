@@ -115,7 +115,7 @@ If it cannot, it instead returns a very good fake git diff.
 
 A fake git diff is faster to produce but may not be 100% representative of a real git diff.
 
-The [flags](#flags-string--null-) option is unavailable when faking and fake diffs never have a header.
+The [flags](#flags-string--null-) option is ignored when faking and fake diffs never have a header.
 
 However, if a fake is good enough and speed is of the essence then you may want to force a fake git diff.
 
