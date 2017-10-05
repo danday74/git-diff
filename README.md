@@ -178,7 +178,7 @@ gitDiff(oldStr, newStr).then(function(diff) {
 
 > **How can I tell if the returned git diff is real or fake?**<br>
 > If the ```@@ -1,3 +1,3 @@``` header is present then the returned git diff is real.<br>
-> If the header is absent then either the noHeaders option is on or the returned git diff is fake.
+> If the header is absent then either the [noHeaders](#options-object) option is on or the returned git diff is fake.
 
 > **Will my environment produce a real or fake git diff?**<br>
 > Linux and mac have the ```printf``` command available. On Windows [git bash](https://git-for-windows.github.io) makes ```printf``` available.<br>
