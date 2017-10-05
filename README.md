@@ -89,7 +89,7 @@ Further assistance is given below for options that are not self explanatory.
 
 The flags option allows you to use any [git diff flags](https://git-scm.com/docs/git-diff#_options)
 
-This only applies to real git diffs and will not effect the returned git diff if it is fake.
+This only applies to real git diffs and will not effect the output if it is fake.
 
 An example to illustrate:
 
@@ -107,7 +107,7 @@ expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 
 #### **forceFake** (boolean) [![top](top.png)](#options-object)
 
-git-diff will initially attempt to use ```git``` and ```printf``` to get the real git diff of two strings.
+git-diff will initially attempt to use ```git``` and ```printf``` to get the real git diff.
 
 If it cannot, it instead returns a very good fake git diff.
 
@@ -159,7 +159,7 @@ Here, the second call remembers that wordDiff is on. `{wordDiff: true}` is now t
 
 ## Async execution
 
-git-diff exposes a promise based async solution:
+git-diff offers a promise based async solution:
 
 ```javascript 1.5
 var gitDiff = require('git-diff/async')
@@ -176,16 +176,15 @@ gitDiff(oldStr, newStr).then(function(diff) {
 
 ## FAQs
 
-Q: How can I tell if the returned git diff is real or fake?
+> Q: How can I tell if the returned git diff is real or fake?
 
-A: If the @@ -1,3 +1,3 @@ header is present then the returned git diff is real
-   If the header is absent then either the noHeaders option is on or the returned git diff is fake
+> A: If the @@ -1,3 +1,3 @@ header is present then the returned git diff is real
+>    If the header is absent then either the noHeaders option is on or the returned git diff is fake
 
-Q: Will my environment produce a real or fake git diff?
+> Q: Will my environment produce a real or fake git diff?
 
-A: Linux and mac have the ```printf``` command available. On Windows [git bash](https://git-for-windows.github.io) makes ```printf``` available.
-
-   Where git is installed then any of these environments will produce a real git diff.
+> A: Linux and mac have the ```printf``` command available. On Windows [git bash](https://git-for-windows.github.io) makes ```printf``` available.
+>    Where git is installed then any of these environments will produce a real git diff.
 
 
 
