@@ -26,8 +26,11 @@ describe('examples', function() {
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
     var diff = gitDiff(oldStr, newStr)
-    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 
+    var assert = require('assert')
+    assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
     imp.expect(imp.color.add).to.have.not.been.called
   })
 
@@ -38,6 +41,8 @@ describe('examples', function() {
     var newStr = readFileGo(__dirname + '/newStr.txt')
     var diff = gitDiff(oldStr, newStr)
 
+    // no assert here
+
     imp.expect(diff).to.equal(imp.data.lineDiffReal)
     imp.expect(imp.color.add).to.have.not.been.called
   })
@@ -47,8 +52,11 @@ describe('examples', function() {
     var oldStr = 'fred\n   is   \nfunny\n'
     var newStr = 'paul\nis\n   funny   \n'
     var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
-    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 
+    var assert = require('assert')
+    assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
+
+    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
     imp.expect(imp.color.add).to.have.not.been.called
   })
 
@@ -57,8 +65,11 @@ describe('examples', function() {
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
     var diff = gitDiff(oldStr, newStr, {forceFake: true})
-    imp.expect(diff).to.equal('-fred\n+paul\n is\n funny\n')
 
+    var assert = require('assert')
+    assert.equal(diff, '-fred\n+paul\n is\n funny\n')
+
+    imp.expect(diff).to.equal('-fred\n+paul\n is\n funny\n')
     imp.expect(imp.color.add).to.have.not.been.called
   })
 
@@ -66,13 +77,15 @@ describe('examples', function() {
     var gitDiff = require('../../sync')
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
-    var diff
+    var diff1 = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
+    var diff2 = gitDiff(oldStr, newStr)
 
-    diff = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
-    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
-    diff = gitDiff(oldStr, newStr)
-    imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+    var assert = require('assert')
+    assert.equal(diff1, '@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+    assert.equal(diff2, '@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 
+    imp.expect(diff1).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+    imp.expect(diff2).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
     imp.expect(imp.color.add).to.have.not.been.called
   })
 
@@ -81,8 +94,10 @@ describe('examples', function() {
     var oldStr = 'fred\nis\nfunny\n'
     var newStr = 'paul\nis\nfunny\n'
     gitDiff(oldStr, newStr).then(function(diff) {
-      imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+      var assert = require('assert')
+      assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 
+      imp.expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
       imp.expect(imp.color.add).to.have.not.been.called
       done()
     })

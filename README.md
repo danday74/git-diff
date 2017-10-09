@@ -43,7 +43,9 @@ var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
 var diff = gitDiff(oldStr, newStr)
-expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+
+var assert = require('assert')
+assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 ```
 
 File diff example usage:
@@ -98,7 +100,9 @@ var gitDiff = require('git-diff')
 var oldStr = 'fred\n   is   \nfunny\n'
 var newStr = 'paul\nis\n   funny   \n'
 var diff = gitDiff(oldStr, newStr, {flags: '--diff-algorithm=minimal --ignore-all-space'})
-expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
+
+var assert = require('assert')
+assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n    funny   \n')
 ```
 
 Here, the use of ```--ignore-all-space``` prevents a difference being reported on the 2nd and 3rd lines.
@@ -126,7 +130,9 @@ var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
 var diff = gitDiff(oldStr, newStr, {forceFake: true})
-expect(diff).to.equal('-fred\n+paul\n is\n funny\n')
+
+var assert = require('assert')
+assert.equal(diff, '-fred\n+paul\n is\n funny\n')
 ```
 
 
@@ -145,12 +151,12 @@ When the `{save: true}` option is used in a call to git-diff subsequent calls re
 var gitDiff = require('git-diff')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
-var diff
+var diff1 = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
+var diff2 = gitDiff(oldStr, newStr)
 
-diff = gitDiff(oldStr, newStr, {save: true, wordDiff: true})
-expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
-diff = gitDiff(oldStr, newStr)
-expect(diff).to.equal('@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+var assert = require('assert')
+assert.equal(diff1, '@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
+assert.equal(diff2, '@@ -1,3 +1,3 @@\n[-fred-]{+paul+}\nis\nfunny\n')
 ```
 
 Here, the second call remembers that the wordDiff option is on. `{wordDiff: true}` is now the default.
@@ -168,7 +174,8 @@ var gitDiff = require('git-diff/async')
 var oldStr = 'fred\nis\nfunny\n'
 var newStr = 'paul\nis\nfunny\n'
 gitDiff(oldStr, newStr).then(function(diff) {
-  expect(diff).to.equal('@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
+  var assert = require('assert')
+  assert.equal(diff, '@@ -1,3 +1,3 @@\n-fred\n+paul\n is\n funny\n')
 })
 ```
 
