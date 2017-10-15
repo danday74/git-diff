@@ -22,13 +22,9 @@ function generateDiff(str1, str2, options, gitDir) {
     gitDir = ''
   }
 
-  var stringify1 = JSON.stringify(str1).replace(/^"/, '').replace(/"$/, '')
-  var stringify2 = JSON.stringify(str2).replace(/^"/, '').replace(/"$/, '')
-
   // Single quotes is needed here to avoid .. event not found
-  // Double quotes is needed here to avoid .. cannot file the file specified when using <
-  var gitHashCmd1 = 'printf "' + stringify1 + '" | git ' + gitDir + ' hash-object -w --stdin'
-  var gitHashCmd2 = 'printf "' + stringify2 + '" | git ' + gitDir + ' hash-object -w --stdin'
+  var gitHashCmd1 = 'printf ' + JSON.stringify(str1) + ' | git ' + gitDir + ' hash-object -w --stdin'
+  var gitHashCmd2 = 'printf ' + JSON.stringify(str2) + ' | git ' + gitDir + ' hash-object -w --stdin'
 
   var gitHashObj1 = exec(gitHashCmd1, {silent: true})
   var gitHashObj2 = exec(gitHashCmd2, {silent: true})
