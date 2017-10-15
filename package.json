@@ -1,6 +1,6 @@
 {
   "name": "git-diff",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Returns the git diff of two strings",
   "author": "Daniel Lewis BSc (Hons)",
   "license": "ISC",
@@ -60,7 +60,7 @@
     "chai-string": "^1.4.0",
     "coveralls": "2.11.16",
     "data-driven": "^1.4.0",
-    "eslint": "^4.8.0",
+    "eslint": "^4.9.0",
     "husky": "^0.14.3",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
