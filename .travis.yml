@@ -4,6 +4,6 @@ node_js:
   - 8
   - 6
   - 4
-  - 4.0.0
+  - 4.8.0
 after_success:
   - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
