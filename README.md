@@ -186,7 +186,8 @@ gitDiff(oldStr, newStr).then(function(diff) {
 ## FAQs
 
 > **How good is the fake git diff?**<br>
-> Very good! It often matches the real git diff exactly but there may be minor divergences.
+> The diff module used for the fake diff does not use the same difference algorithm as git.
+> As such, a line diff is likely to be identical to a git line diff whereas a word diff will have some variance.
 
 > **How can I tell whether the returned git diff is real or fake?**<br>
 > If the ```@@ -1,3 +1,3 @@``` header is present then the returned git diff is real.<br>
