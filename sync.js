@@ -1,6 +1,6 @@
 'use strict'
 
-require('./test/server.bootstrap')
+require('./server.bootstrap')
 
 var gitDiffFake = require('./js/gitDiffFake')
 var gitDiffReal = require('./js/gitDiffReal')

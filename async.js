@@ -1,6 +1,6 @@
 'use strict'
 
-require('./test/server.bootstrap')
+require('./server.bootstrap')
 
 var gitDiffSync = require('./sync')
 
