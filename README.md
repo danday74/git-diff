@@ -139,7 +139,7 @@ assert.equal(diff, '-fred\n+paul\n is\n funny\n')
 
 <br>
 
-#### **save** (boolean) [![top](top.png)](#options-object)
+#### **save** (boolean) [![top](top.png)](#options-object) [![Greenkeeper badge](https://badges.greenkeeper.io/danday74/git-diff.svg)](https://greenkeeper.io/)
 
 Its annoying to keep passing the same options every time.
 
