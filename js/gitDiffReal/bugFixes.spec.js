@@ -21,5 +21,11 @@ describe('gitDiffReal', function() {
       var actual = gitDiffReal('<a>', '<b>', {color: false, wordDiff: true})
       imp.expect(actual).to.equal(expected)
     })
+
+    it('` in string is not interpreted as shell subcommand', function() {
+      var expected = '@@ -1 +1 @@\n[-`a`b-]{+`c`d+}\n'
+      var actual = gitDiffReal('`a`b', '`c`d', {color: false, wordDiff: true})
+      imp.expect(actual).to.equal(expected)
+    })
   })
 })
