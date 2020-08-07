@@ -12,6 +12,10 @@ logger.setLevel('info')
 // git diff $(printf 'my first string' | git hash-object -w --stdin) $(printf 'my second string' | git hash-object -w --stdin) --word-diff
 // git diff $(printf 'This is a test for my diff tool\nIt is a big test\n\nNo diff here\n\nBut there might be here\nBut not here\n\nOr here\n' | git hash-object -w --stdin) $(printf 'This is a test for my difference tool\nIt is a small test\n\nNo diff here\n\nBut there might be here!\nBut not here\n\nOr here\n' | git hash-object -w --stdin) --word-diff
 
+function escapeShellArg(arg) {
+  return "'" + arg.replace(/'/g, "'\\''") + "'"
+}
+
 function generateDiff(str1, str2, options, gitDir) {
 
   var DEFAULTS = require('../../_shared/defaultOptions')
@@ -23,8 +27,8 @@ function generateDiff(str1, str2, options, gitDir) {
   }
 
   // Single quotes is needed here to avoid .. event not found
-  var gitHashCmd1 = 'printf ' + JSON.stringify(str1) + ' | git ' + gitDir + ' hash-object -w --stdin'
-  var gitHashCmd2 = 'printf ' + JSON.stringify(str2) + ' | git ' + gitDir + ' hash-object -w --stdin'
+  var gitHashCmd1 = 'printf ' + escapeShellArg(str1) + ' | git ' + gitDir + ' hash-object -w --stdin'
+  var gitHashCmd2 = 'printf ' + escapeShellArg(str2) + ' | git ' + gitDir + ' hash-object -w --stdin'
 
   var gitHashObj1 = exec(gitHashCmd1, {silent: true})
   var gitHashObj2 = exec(gitHashCmd2, {silent: true})
