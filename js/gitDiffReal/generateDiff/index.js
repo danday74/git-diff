@@ -61,23 +61,34 @@ function generateDiff(str1, str2, options, gitDir) {
 
       do {
 
-        var flags = ''
+        var flags = []
 
         if (options.wordDiff) {
-          flags += ' --word-diff'
+          flags.push('--word-diff')
         }
 
         if (options.color) {
-          flags += ' --color=always'
+          flags.push('--color=always')
         }
 
         if (options.flags) {
-          flags += ' ' + options.flags
+          // Split caller-supplied flags into individual argv tokens. They are passed to
+          // execFileSync as separate arguments (NOT joined into a shell command), so shell
+          // metacharacters in options.flags (e.g. "; rm -rf ~") can no longer execute.
+          flags.push.apply(flags, String(options.flags).trim().split(/\s+/).filter(Boolean))
         }
 
-        var newCommand = 'git ' + gitDir + ' diff ' + sha1 + ' ' + sha2 + flags
-
-        diffObj = exec(newCommand, {silent: true})
+        // Run `git diff` WITHOUT a shell — same hardening as the hash-object step above. The
+        // old `exec('git diff ' + sha1 + ' ' + sha2 + flags)` interpolated options.flags into a
+        // shell command string, which was a command-injection sink.
+        diffObj = (function () {
+          try {
+            var stdout = execFileSync('git', gitDirArgs.concat(['diff', sha1, sha2]).concat(flags), {encoding: 'utf8'})
+            return {code: 0, stdout: stdout, stderr: ''}
+          } catch (err) {
+            return {code: err.status || 1, stdout: String(err.stdout || ''), stderr: String(err.stderr || err.message)}
+          }
+        })()
 
         if (diffObj.code === 129 && diffObj.stderr.indexOf('usage') > -1) {
           logger.warn('Ignoring invalid git diff options: ' + options.flags)
