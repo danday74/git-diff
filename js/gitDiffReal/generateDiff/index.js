@@ -1,6 +1,7 @@
 'use strict'
 
 var exec = require('shelljs.exec')
+var execFileSync = require('child_process').execFileSync
 var logger = require('loglevel')
 var config = require('../../../config')
 
@@ -16,18 +17,33 @@ function generateDiff(str1, str2, options, gitDir) {
 
   var DEFAULTS = require('../../_shared/defaultOptions')
 
+  var gitDirArgs = (typeof gitDir === 'string') ? ['--git-dir', gitDir] : []
   if (typeof gitDir === 'string') {
     gitDir = '--git-dir ' + gitDir
   } else {
     gitDir = ''
   }
 
-  // Single quotes is needed here to avoid .. event not found
-  var gitHashCmd1 = 'printf ' + JSON.stringify(str1) + ' | git ' + gitDir + ' hash-object -w --stdin'
-  var gitHashCmd2 = 'printf ' + JSON.stringify(str2) + ' | git ' + gitDir + ' hash-object -w --stdin'
+  // Hash each input string by feeding it to `git hash-object` over stdin WITHOUT a
+  // shell. The previous implementation interpolated the strings into a `printf "..."`
+  // shell command; JSON.stringify only escapes quotes/backslashes, so payloads such as
+  // `$(cmd)` or `` `cmd` `` survived inside the double quotes and executed (command
+  // injection). Passing the value via the child's stdin removes the shell entirely, so
+  // the content can never be parsed as a command.
+  function gitHashObject(input) {
+    try {
+      var stdout = execFileSync('git', gitDirArgs.concat(['hash-object', '-w', '--stdin']), {
+        input: input,
+        encoding: 'utf8'
+      })
+      return {code: 0, stdout: stdout}
+    } catch (err) {
+      return {code: err.status || 1, stdout: '', stderr: String(err.stderr || err.message)}
+    }
+  }
 
-  var gitHashObj1 = exec(gitHashCmd1, {silent: true})
-  var gitHashObj2 = exec(gitHashCmd2, {silent: true})
+  var gitHashObj1 = gitHashObject(str1)
+  var gitHashObj2 = gitHashObject(str2)
 
   /* istanbul ignore else */
   if (gitHashObj1.code === 0 && gitHashObj2.code === 0) {
